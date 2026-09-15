@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+
+# 依赖与构建产物（本项目无构建步骤，保留以防万一）
+node_modules/
+dist/
+build/
+
+# 本地环境
+.env
+.env.local
+
+# 采集用临时文件（价格截图请另存在仓库外的私有目录，不要提交含个人信息的页面）
+_screenshots/
+_tmp/

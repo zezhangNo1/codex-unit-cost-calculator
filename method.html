@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>方法论与数据来源 —— Codex 单位成本</title>
+<meta name="description" content="Codex 单位成本的计算公式、参数来源、口径冲突说明与局限性。透明度比数字本身更重要。">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="inner">
+    <a class="brand" href="index.html">Codex 单位成本</a>
+    <nav>
+      <a href="index.html">计算器</a>
+      <a href="compare.html">对比矩阵与价格</a>
+      <a class="on" href="method.html">方法论与数据来源</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <h1>方法论</h1>
+  <p class="sub">同类站点对「平均重置间隔」的口径能差出一倍以上（4.1 天中位 vs 8.9 天平均）。所以这个赛道的核心资产不是数据，是<strong>数据口径的透明度</strong>。</p>
+
+  <div class="banner">
+    <b>先说明立场</b>　本站只做信息聚合与对比，只陈述各地标价事实，<strong>不提供任何跨区订阅的操作路径</strong>。所有数字都是估算，以你付款页实际显示为准。
+  </div>
+
+  <section class="card">
+    <h2><span class="n">01</span>计算公式</h2>
+    <pre>名义单位成本 = 月费(USD) ÷ 倍率
+
+重置增益系数 G = (<span id="metaWeeks">4.33</span> + R × u) ÷ <span id="metaWeeks2">4.33</span>
+
+实际单位成本 = 月费(USD) ÷ (倍率 × G)
+
+每 $1 产能     = 倍率 × G ÷ 月费(USD)</pre>
+
+    <h3>参数含义</h3>
+    <ul>
+      <li><code>月费</code> —— 该区域该档位的实付价折美元，逐条标注口径与时点。</li>
+      <li><code>倍率</code> —— 官方公布的 Plus 倍数（1 / 5 / 20），来自官方定价页。</li>
+      <li><code>R</code> —— 月均全局重置次数。默认 7.3，依据是<span id="metaResetBasis">各追踪站中位间隔 4.1 天（30 ÷ 4.1 ≈ 7.3）</span>。可自行修改。</li>
+      <li><code>u</code> —— 重置利用率，<strong>用户自评参数，不是客观事实</strong>。</li>
+      <li><code>4.33</code> —— 每月周数，固定值。</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2><span class="n">02</span>为什么用「倍率」当分母</h2>
+    <p>官方只公布<strong>倍率</strong>，从不公布「每月等于多少 credits」的绝对值。官方给出的是 <em>估算区间</em>，且区间宽得几乎没有决策价值 —— 以 Plus 为例，同一档位按模型不同可差 10 倍以上（Sol 10–100 条 / 5 小时，Luna 250–2,000 条 / 5 小时）。</p>
+    <p>因此本站<strong>不换算成 token</strong>，而是回到唯一可比的量纲：<strong>1× Plus 额度</strong>。这样做的好处是，任何两个配置的比较都不依赖对「agentic 任务平均消耗多少 credits」的猜测。</p>
+    <p>官方 credits 计价表（供参考，本站不用于计算）：Sol 输入 125 credits / 1M、缓存输入 12.5 / 1M、输出 750 / 1M；Terra 62.5 / 6.25 / 375；Luna 25 / 2.5 / 150。</p>
+  </section>
+
+  <section class="card">
+    <h2><span class="n">03</span>重置为什么只是一个参数</h2>
+    <p>这一点值得单独说清楚，因为它是本站与「重置时钟站」最大的分野。</p>
+    <ul>
+      <li>重置是<strong>全局事件</strong>，对所有档位一视同仁。</li>
+      <li>因此它<strong>不改变任何档位之间的相对排序</strong>，只整体压低所有配置的单位成本水位。</li>
+      <li>换句话说：<strong>重置不改变你「该选哪个」，只改变「你实际划不划算」。</strong></li>
+    </ul>
+    <p>所以本站把重置做成计算器里的一个滑块，而不是首页的一个大时钟。同类站点把重置当主菜，结果流量是脉冲式的（重置日爆发、平时低谷），广告收入极不稳定 —— 这不是执行力问题，是定位问题。</p>
+    <p class="note">另需注意：各追踪站对「重置间隔」的口径互相矛盾（中位 4.1 天、平均 8.9 天、中位 3.2 天；次数 35 / 48 / 52 不等）。差异来源可能是起算点、是否计入 banked reset、是否只统计已确认的重置。默认值取中位口径，但请把它当作一个可调参数而非事实。</p>
+  </section>
+
+  <section class="card">
+    <h2><span class="n">04</span>官方机制（必读）</h2>
+    <ul>
+      <li>OpenAI 按<strong>支付方式所属国家</strong>定价，<strong>不是按 IP</strong>。</li>
+      <li>用 VPN 换区虽然能看到低价，但<strong>结账会失败</strong>。</li>
+      <li>需要真实的当地支付方式，通常要求当地居住身份。</li>
+      <li>跨区订阅在 Apple / Google / OpenAI 条款中属灰色地带，<strong>存在封号案例</strong>。</li>
+      <li>额度有两层限制：5 小时滚动窗口 + 周上限，两者独立计算。</li>
+      <li>官方提供 <strong>banked rate-limit reset</strong>（受邀赠 1 次，30 天有效），属于限时机制。</li>
+    </ul>
+    <p class="note">本站不鼓励、不指导任何跨区订阅行为。列出这些机制是为了让读者理解：为什么同一档位在不同来源会报出完全不同的价格。</p>
+  </section>
+
+  <section class="card">
+    <h2><span class="n">05</span>数据来源与维护</h2>
+    <h3>官方来源（高置信度）</h3>
+    <ul>
+      <li><a id="metaPricingUrl" href="https://developers.openai.com/codex/pricing" target="_blank" rel="noopener">developers.openai.com/codex/pricing</a> —— 官方倍率表、credits 计价表、各档月费</li>
+      <li><a id="metaLimitsUrl" href="https://www.chatgpt.com/codex/pricing" target="_blank" rel="noopener">chatgpt.com/codex/pricing</a> —— 官方 usage limits 表</li>
+    </ul>
+
+    <h3>区域价格来源（置信度较低，均为二手）</h3>
+    <ul>
+      <li>geopriced.com、itscheaper.in、aisubscriptioncomparison.com —— 全球价格对照站，均为静态表，无汇率时点</li>
+      <li>中文公众号、头条等 —— 部分为 iOS App Store 实价截图，口径明确但时间戳常缺失</li>
+    </ul>
+    <p class="note">区域价格<strong>存在多来源冲突</strong>：以菲律宾区 Plus 月费为例，三个来源分别报 $9.76 / ¥109.82（≈$15.40）/ ₱1,200（≈$19.10），相差近 2 倍。本站取中位口径并在价格明细中并列展示全部来源，请勿将任一数字当作事实。</p>
+
+    <h3>维护方式</h3>
+    <ul>
+      <li>数据以纯文本形式存放在 <code>assets/data.js</code>，每次更新都可通过版本历史追溯。</li>
+      <li>区域价格由人工采集并留存截图 —— <strong>登录后的实际价格页面无法用脚本获取</strong>，截图本身即信任资产。</li>
+      <li>抓不到就留空，不用推算价填补。</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2><span class="n">06</span>局限性（请务必读完）</h2>
+    <ul>
+      <li>月费是<strong>估算值</strong>，以付款页实际显示为准。</li>
+      <li>倍率是官方倍数，<strong>不是额度绝对值</strong>。</li>
+      <li><code>u</code> 是用户自评参数，不是客观事实。</li>
+      <li>重置红利对所有档位等比例生效，<strong>不影响排序</strong>。</li>
+      <li>折美元使用来源方给出的汇率，<strong>不是统一时点的汇率</strong>，跨来源比较存在系统性误差。</li>
+      <li>置信度只衡量「口径与时间戳是否明确」，<strong>不代表该区域可正常订阅</strong>。</li>
+      <li>本站<strong>不构成投资或订阅建议</strong>，不承担任何因订阅决策产生的后果。</li>
+    </ul>
+    <p class="note">数据快照更新于 <span id="metaUpdated">2026-09-15</span>。</p>
+  </section>
+
+  <p class="foot">
+    本站为信息聚合与对比站点，不提供跨区订阅操作指引。<br>
+    请以官方条款与实际付款页为准。
+  </p>
+
+</main>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

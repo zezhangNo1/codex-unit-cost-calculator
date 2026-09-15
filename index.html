@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Codex 单位成本计算器 —— 你的每块钱买到多少产能</title>
+<meta name="description" content="把 Codex 的档位倍率、区域实付价与重置红利合成一个可比较的数字：每 1 美元买到多少产能。附各区域价格口径、来源与置信度。">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="inner">
+    <a class="brand" href="index.html">Codex 单位成本</a>
+    <nav>
+      <a class="on" href="index.html">计算器</a>
+      <a href="compare.html">对比矩阵与价格</a>
+      <a href="method.html">方法论与数据来源</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <h1>你的 Codex 每块钱买到多少产能？</h1>
+  <p class="sub">档位倍率 × 区域实付价 × 重置红利 —— 合成一个可比较的数字。</p>
+
+  <div class="banner">
+    <b>口径预警</b>　本页所有价格为<strong>估算值</strong>，以你付款页实际显示为准。官方只公布<strong>倍率</strong>（Plus 1× / Pro 5x 5× / Pro 20x 20×），从<strong>未公布</strong>「每月等于多少 credits」的绝对值，因此任何「能跑多少 token」的说法都是估算。每条价格均标注来源与抓取时间，缺失即为缺失。
+  </div>
+
+  <section class="card">
+    <h2><span class="n">01</span>单位成本计算器</h2>
+    <p class="hint">选择你的档位与支付区，拖动重置利用率，得到每美元实际买到的产能。</p>
+
+    <div class="grid2">
+      <div>
+        <label for="plan">订阅档位</label>
+        <select id="plan"></select>
+      </div>
+      <div>
+        <label for="region">支付区（按支付方式所属国，非 IP）</label>
+        <select id="region"></select>
+      </div>
+      <div>
+        <label for="u">重置利用率 —— 重置发生后你能吃掉多少额度</label>
+        <input type="range" id="u" min="0" max="100" step="5" value="50">
+        <div class="rowval"><span>0%（完全不吃）</span><b id="uval">50%</b></div>
+      </div>
+      <div>
+        <label for="R">月均全局重置次数</label>
+        <input type="number" id="R" min="0" max="30" step="0.1" value="7.3">
+        <div class="rowval"><span>默认 7.3 = 30 ÷ 4.1 天中位间隔</span><span>口径见方法论</span></div>
+      </div>
+    </div>
+
+    <div class="out" id="out"></div>
+    <div class="meta" id="meta"></div>
+  </section>
+
+  <section class="card">
+    <h2><span class="n">02</span>这一步算出了什么</h2>
+    <p class="hint">官方三档的名义单位成本，以及叠加重置红利后的实际单位成本。</p>
+    <div class="legend">
+      <span><i class="sw" style="background:#8A8A85"></i>名义单位成本（不含重置红利）</span>
+      <span><i class="sw" style="background:#B02A20"></i>实际单位成本（按上方利用率）</span>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>档位</th><th class="num">月费</th><th class="num">额度</th>
+            <th class="num">名义单位成本</th><th class="num">实际单位成本</th><th>结论</th>
+          </tr>
+        </thead>
+        <tbody id="tierTable"></tbody>
+      </table>
+    </div>
+    <p class="note" id="tierNote"></p>
+  </section>
+
+  <form class="cta" id="subForm" data-endpoint="">
+    <div style="flex:1 1 260px">
+      <h3 style="margin:0 0 2px">价格一有变化就通知你</h3>
+      <p class="hint" style="margin:0">只发价格与口径变动，不发推广。</p>
+    </div>
+    <input type="email" placeholder="你的邮箱" required>
+    <button class="btn" type="submit">订阅更新</button>
+    <div style="flex:1 1 100%"><p class="hint" id="subTip" style="margin:0"></p></div>
+  </form>
+
+  <p class="foot">
+    本页为信息聚合与对比，<strong>不构成订阅建议，不提供任何跨区操作指引</strong>。<br>
+    价格数据快照更新于 <span id="metaUpdated">2026-09-15</span>，请以官方条款与实际付款页为准。<br>
+    <span id="staleness"></span>
+  </p>
+
+</main>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
