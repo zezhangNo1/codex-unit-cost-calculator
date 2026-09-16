@@ -3,8 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Codex 单位成本计算器 —— 你的每块钱买到多少产能</title>
-<meta name="description" content="把 Codex 的档位倍率、区域实付价与重置红利合成一个可比较的数字：每 1 美元买到多少产能。附各区域价格口径、来源与置信度。">
+<title>Codex 该买哪档？Pro 5x 每块钱买到的产能和 Plus 一模一样</title>
+<meta name="description" content="按官方倍率折算，每 1× 额度要花多少人民币。结论：Pro 5x 的单位产能成本与 Plus 完全相同，比 Pro 20x 贵一倍。附各区实付价的口径、来源与置信度。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="别急着买 Pro 5x：它每块钱买到的产能，和 Plus 一模一样">
+<meta property="og:description" content="按官方倍率折算成人民币，Pro 5x 的单位产能成本是 ¥135，与 Plus 相同，却是 Pro 20x 的两倍。">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary">
 <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
@@ -13,8 +18,8 @@
   <div class="inner">
     <a class="brand" href="index.html">Codex 单位成本</a>
     <nav>
-      <a class="on" href="index.html">计算器</a>
-      <a href="compare.html">对比矩阵与价格</a>
+      <a class="on" href="index.html">结论与计算器</a>
+      <a href="compare.html">各区实付价</a>
       <a href="method.html">方法论与数据来源</a>
     </nav>
   </div>
@@ -22,16 +27,27 @@
 
 <main class="wrap">
 
-  <h1>你的 Codex 每块钱买到多少产能？</h1>
-  <p class="sub">档位倍率 × 区域实付价 × 重置红利 —— 合成一个可比较的数字。</p>
+  <section class="hero">
+    <div class="hero-meta" id="heroMeta">美区官方价 · 更新于 2026-09-16</div>
+    <h1 id="heroTitle">同样的钱，买到多少产能</h1>
+    <p class="hero-sub" id="heroSub">按官方倍率折算，每 1× 额度要花多少钱。</p>
+    <div class="tiers" id="tiers"></div>
+    <div class="actions">
+      <button class="btn" type="button" id="shareBtn">生成结论图</button>
+      <a class="btn ghost" href="compare.html">看各区实付价</a>
+    </div>
+    <p class="hint" id="shareTip">结论图是 1080×1440 的竖版图片，存下来就能直接发小红书或微信。</p>
+    <p class="note" id="heroNote"></p>
+  </section>
 
-  <div class="banner">
-    <b>口径预警</b>　本页所有价格为<strong>估算值</strong>，以你付款页实际显示为准。官方只公布<strong>倍率</strong>（Plus 1× / Pro 5x 5× / Pro 20x 20×），从<strong>未公布</strong>「每月等于多少 credits」的绝对值，因此任何「能跑多少 token」的说法都是估算。每条价格均标注来源与抓取时间，缺失即为缺失。
-  </div>
+  <p class="disclaimer">
+    <b>口径说明</b>　本页价格为<strong>估算值</strong>，以你付款页实际显示为准。官方只公布<strong>倍率</strong>（Plus 1× / Pro 5x 5× / Pro 20x 20×），从未公布「每月等于多少 credits」的绝对值，因此任何「能跑多少 token」的说法都是估算。
+    OpenAI 按<strong>支付方式所属国家</strong>定价（不是按 IP）；跨区订阅属条款灰区，存在封号案例。本站只做信息聚合与对比，不提供任何跨区操作指引。
+  </p>
 
   <section class="card">
-    <h2><span class="n">01</span>单位成本计算器</h2>
-    <p class="hint">选择你的档位与支付区，拖动重置利用率，得到每美元实际买到的产能。</p>
+    <h2><span class="n">01</span>按你自己的情况算</h2>
+    <p class="hint">前面那三档是名义口径（不含重置）。把重置利用率和你选的档位、支付区填进来，得到属于你的实际单位成本。</p>
 
     <div class="grid2">
       <div>
@@ -59,17 +75,13 @@
   </section>
 
   <section class="card">
-    <h2><span class="n">02</span>这一步算出了什么</h2>
-    <p class="hint">官方三档的名义单位成本，以及叠加重置红利后的实际单位成本。</p>
-    <div class="legend">
-      <span><i class="sw" style="background:#8A8A85"></i>名义单位成本（不含重置红利）</span>
-      <span><i class="sw" style="background:#B02A20"></i>实际单位成本（按上方利用率）</span>
-    </div>
+    <h2><span class="n">02</span>三档横向对比</h2>
+    <p class="hint">官方三档的名义单位成本，以及叠加重置红利后的实际单位成本。改上面的利用率，这张表会跟着变。</p>
     <div class="tablewrap">
       <table>
         <thead>
           <tr>
-            <th>档位</th><th class="num">月费</th><th class="num">额度</th>
+            <th>档位</th><th class="num">月付</th><th class="num">额度</th>
             <th class="num">名义单位成本</th><th class="num">实际单位成本</th><th>结论</th>
           </tr>
         </thead>
@@ -91,7 +103,7 @@
 
   <p class="foot">
     本页为信息聚合与对比，<strong>不构成订阅建议，不提供任何跨区操作指引</strong>。<br>
-    价格数据快照更新于 <span id="metaUpdated">2026-09-15</span>，请以官方条款与实际付款页为准。<br>
+    价格数据快照更新于 <span id="metaUpdated">2026-09-16</span>，请以官方条款与实际付款页为准。<br>
     <span id="staleness"></span>
   </p>
 

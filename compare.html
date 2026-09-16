@@ -13,8 +13,8 @@
   <div class="inner">
     <a class="brand" href="index.html">Codex 单位成本</a>
     <nav>
-      <a href="index.html">计算器</a>
-      <a class="on" href="compare.html">对比矩阵与价格</a>
+      <a href="index.html">结论与计算器</a>
+      <a class="on" href="compare.html">各区实付价</a>
       <a href="method.html">方法论与数据来源</a>
     </nav>
   </div>
@@ -55,11 +55,11 @@
         <thead>
           <tr>
             <th>配置</th>
-            <th class="num">月费</th>
+            <th class="num">月付（¥）</th>
             <th class="num">倍率</th>
-            <th class="num">名义单位成本</th>
-            <th class="num">实际单位成本</th>
-            <th class="num">每 $1 产能</th>
+            <th class="num">名义单位成本（¥）</th>
+            <th class="num">实际单位成本（¥）</th>
+            <th class="num">每 ¥100 产能</th>
             <th>相对水位</th>
           </tr>
         </thead>
@@ -72,12 +72,13 @@
   <section class="card">
     <h2><span class="n">03</span>价格明细与口径</h2>
     <p class="hint">这是本产品的信任核心。每条价格都必须可追溯到口径、来源与时点。读不懂的口径就是不可用的价格。</p>
+    <p class="hint mobonly">表格较宽，可左右滑动查看。</p>
     <div class="tablewrap">
       <table id="prices">
         <thead>
           <tr>
             <th>区域</th><th>档位</th><th>本币标价</th><th>口径</th>
-            <th class="num">折美元</th><th>来源</th><th>抓取时间</th><th>置信度</th>
+            <th class="num">折人民币</th><th>来源</th><th>抓取时间</th><th>置信度</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -93,14 +94,14 @@
     <h2><span class="n">04</span>三条读表须知</h2>
     <ul>
       <li><strong>便宜的往往最不可信。</strong>排名第一的配置置信度通常最低 —— 这既是这类信息长期不可用的原因，也是本页把置信度与价格并排展示的原因。</li>
-      <li><strong>本币标价不等于实付。</strong>是否含税、是否叠加平台费，多数来源并未说明。折美元仅为便于横向比较。</li>
+      <li><strong>本币标价不等于实付。</strong>是否含税、是否叠加平台费，多数来源并未说明。折人民币仅为便于横向比较，汇率与本页其他数字同一时点。</li>
       <li><strong>缺失就是缺失。</strong>没有已核验价格的组合不会出现在排序里，也不会被推算价填补。</li>
     </ul>
     <p class="note">官方机制：OpenAI 按<strong>支付方式所属国家</strong>定价，非 IP，因此 VPN 换区虽然能看到低价但结账会失败；需要真实的当地支付方式。跨区订阅在 Apple / Google / OpenAI 条款中属灰色地带，<strong>存在封号案例</strong>。本页只陈述各地标价事实，不提供任何操作路径。</p>
   </section>
 
   <p class="foot">
-    价格数据快照更新于 <span id="metaUpdated">2026-09-15</span>，请以官方条款与实际付款页为准。<br>
+    价格数据快照更新于 <span id="metaUpdated">2026-09-16</span>，请以官方条款与实际付款页为准。<br>
     <span id="staleness"></span>
   </p>
 

@@ -13,8 +13,8 @@
   <div class="inner">
     <a class="brand" href="index.html">Codex 单位成本</a>
     <nav>
-      <a href="index.html">计算器</a>
-      <a href="compare.html">对比矩阵与价格</a>
+      <a href="index.html">结论与计算器</a>
+      <a href="compare.html">各区实付价</a>
       <a class="on" href="method.html">方法论与数据来源</a>
     </nav>
   </div>
@@ -31,22 +31,28 @@
 
   <section class="card">
     <h2><span class="n">01</span>计算公式</h2>
-    <pre>名义单位成本 = 月费(USD) ÷ 倍率
+    <pre>名义单位成本 = 月费(折人民币) ÷ 倍率
 
 重置增益系数 G = (<span id="metaWeeks">4.33</span> + R × u) ÷ <span id="metaWeeks2">4.33</span>
 
-实际单位成本 = 月费(USD) ÷ (倍率 × G)
+实际单位成本 = 月费(折人民币) ÷ (倍率 × G)
 
-每 $1 产能     = 倍率 × G ÷ 月费(USD)</pre>
+每 ¥100 产能   = 倍率 × G ÷ 月费(折人民币) × 100</pre>
 
     <h3>参数含义</h3>
     <ul>
-      <li><code>月费</code> —— 该区域该档位的实付价折美元，逐条标注口径与时点。</li>
+      <li><code>月费</code> —— 该区域该档位的实付价，统一折成人民币展示，逐条标注口径与时点。</li>
       <li><code>倍率</code> —— 官方公布的 Plus 倍数（1 / 5 / 20），来自官方定价页。</li>
       <li><code>R</code> —— 月均全局重置次数。默认 7.3，依据是<span id="metaResetBasis">各追踪站中位间隔 4.1 天（30 ÷ 4.1 ≈ 7.3）</span>。可自行修改。</li>
       <li><code>u</code> —— 重置利用率，<strong>用户自评参数，不是客观事实</strong>。</li>
       <li><code>4.33</code> —— 每月周数，固定值。</li>
+      <li><code>汇率</code> —— 当前 <span id="metaFx">6.7268（2026-09-16）</span>，来自 <a href="https://open.er-api.com/v6/latest/USD" target="_blank" rel="noopener">open.er-api.com</a>（公开接口，免 Key）。全站<strong>统一使用同一时点汇率</strong>，避免跨来源比较时被汇率差污染。</li>
     </ul>
+    <p class="note" id="metaWorked"></p>
+
+    <h3>口径比数字更重要（这是本站与同类站最大的分野）</h3>
+    <p>同一个档位在同一个区域，会因为<strong>支付渠道不同</strong>而报出完全不同的价格：Web 官网订阅、iOS App Store 内购、Google Play 内购是三套独立定价。不标口径的价格表，看起来精确，实际上是三个数混在一起。</p>
+    <p>一个真实例子：菲律宾区 Plus 曾在中文互联网上并流传三个数字 —— <code>$9.76</code>、<code>¥109.82</code>、<code>₱1,200</code>，相差近 2 倍。经核对，其中 <code>₱999（≈¥106.89）</code> 是 <strong>iOS App Store 内购</strong>价（App Store 菲律宾区，且是全球 App Store 最低），另两个疑为 Web 价或含税口径。<strong>它们不是互相证伪，而是量的是三件不同的事。</strong>因此本站的每条价格都必须写清口径，缺口径的价格不收录。</p>
   </section>
 
   <section class="card">
@@ -91,15 +97,22 @@
 
     <h3>区域价格来源（置信度较低，均为二手）</h3>
     <ul>
-      <li>geopriced.com、itscheaper.in、aisubscriptioncomparison.com —— 全球价格对照站，均为静态表，无汇率时点</li>
+      <li>geopriced.com、itscheaper.in、aisubscriptioncomparison.com —— 全球价格对照站，均为静态表，多数无汇率时点、未标支付口径</li>
       <li>中文公众号、头条等 —— 部分为 iOS App Store 实价截图，口径明确但时间戳常缺失</li>
+      <li>appstoreprice.org —— App Store 各 storefront 价格聚合站，覆盖 32 个地区，用于核对 iOS 内购口径</li>
     </ul>
-    <p class="note">区域价格<strong>存在多来源冲突</strong>：以菲律宾区 Plus 月费为例，三个来源分别报 $9.76 / ¥109.82（≈$15.40）/ ₱1,200（≈$19.10），相差近 2 倍。本站取中位口径并在价格明细中并列展示全部来源，请勿将任一数字当作事实。</p>
+    <p class="note">区域价格<strong>存在多来源冲突</strong>。以菲律宾区 Plus 月费为例：<code>₱999 ≈ ¥106.89</code> 已定位为 <strong>iOS App Store 内购</strong>口径（App Store 菲律宾区，全球 App Store 最低价），此前流传的 <code>$9.76</code> 与 <code>₱1,200</code> 疑为 Web 价与含税口径。<strong>三者为口径差异，不是互相证伪</strong> —— 这也是本站把「口径」单列一栏的原因。</p>
+
+    <h3>汇率来源</h3>
+    <ul>
+      <li><a href="https://open.er-api.com/v6/latest/USD" target="_blank" rel="noopener">open.er-api.com/v6/latest/USD</a> —— 公开接口、免 Key、无需注册，当前值见上方参数表。</li>
+      <li>汇率<strong>手工更新</strong>，时点与数据快照一并展示。全站只用这一个汇率，不做多币种切换。</li>
+    </ul>
 
     <h3>维护方式</h3>
     <ul>
       <li>数据以纯文本形式存放在 <code>assets/data.js</code>，每次更新都可通过版本历史追溯。</li>
-      <li>区域价格由人工采集并留存截图 —— <strong>登录后的实际价格页面无法用脚本获取</strong>，截图本身即信任资产。</li>
+      <li>区域价格以人工采集为主并留存截图；<strong>登录后的实际价格页面无法用脚本获取</strong>。App Store 各区域内购价理论上可自动化，但需要 Apple 的令牌轮转与批量采集，存在工程门槛与条款风险，本站暂不采用。</li>
       <li>抓不到就留空，不用推算价填补。</li>
     </ul>
   </section>
@@ -111,11 +124,11 @@
       <li>倍率是官方倍数，<strong>不是额度绝对值</strong>。</li>
       <li><code>u</code> 是用户自评参数，不是客观事实。</li>
       <li>重置红利对所有档位等比例生效，<strong>不影响排序</strong>。</li>
-      <li>折美元使用来源方给出的汇率，<strong>不是统一时点的汇率</strong>，跨来源比较存在系统性误差。</li>
+      <li>折人民币使用<strong>统一时点的汇率</strong>；但部分区域价格本身是来源方按各自汇率折算的，跨来源比较仍存在系统性误差。</li>
       <li>置信度只衡量「口径与时间戳是否明确」，<strong>不代表该区域可正常订阅</strong>。</li>
       <li>本站<strong>不构成投资或订阅建议</strong>，不承担任何因订阅决策产生的后果。</li>
     </ul>
-    <p class="note">数据快照更新于 <span id="metaUpdated">2026-09-15</span>。</p>
+    <p class="note">数据快照更新于 <span id="metaUpdated">2026-09-16</span>。</p>
   </section>
 
   <p class="foot">
