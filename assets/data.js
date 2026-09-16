@@ -53,6 +53,7 @@ window.PRICING_DATA = {
     {
       id: 'US',
       name: '美区（官方）',
+      short: '美区',
       pending: false,
       prices: {
         plus: {
@@ -78,6 +79,7 @@ window.PRICING_DATA = {
     {
       id: 'PH',
       name: '菲律宾区',
+      short: '菲律宾',
       pending: false,
       prices: {
         plus: {
@@ -88,16 +90,17 @@ window.PRICING_DATA = {
           note: '这是 iOS 内购口径，不是 Web 价。此前流传的三个数字差异已定位：¥109.82 ≈ 本条目（iOS 内购）；geopriced 报 $9.76 疑为 Web 或未含税口径；itscheaper.in 报 ₱1,200 疑为含税或另一时点。三者为口径差异，不是互相证伪。'
         },
         pro20: {
-          usd: 164.93, cny: 1109.41, local: '¥1,109.41（原来源直接以人民币标注）', caliber: 'iOS App Store 内购',
+          usd: 164.93, cny: 1109.41, local: '¥1,109.41', caliber: 'iOS App Store 内购',
           source: '中文来源（与同区 Plus 条目交叉印证）',
           url: '', fetched: '2026-08-11', conf: '中',
-          note: '与本区 Plus 的比值为 10.38 倍，接近官方价格比（$200 ÷ $20 = 10.0），差约 4% 可由 Apple 价格档位取整解释 —— 两条原本低置信的数据因此互相印证。仍建议做一手核验。'
+          note: '来源直接以人民币标注，无本币原价。与本区 Plus 的比值为 10.38 倍，接近官方价格比（$200 ÷ $20 = 10.0），差约 4% 可由 Apple 价格档位取整解释 —— 两条原本低置信的数据因此互相印证。仍建议做一手核验。'
         }
       }
     },
     {
       id: 'TR',
       name: '土耳其区',
+      short: '土耳其',
       pending: false,
       prices: {
         plus: {
@@ -110,10 +113,11 @@ window.PRICING_DATA = {
     {
       id: 'AR',
       name: '阿根廷区',
+      short: '阿根廷',
       pending: false,
       prices: {
         plus: {
-          usd: 5.73, local: 'ARS（未标注具体金额）', caliber: '未标注（税费口径不明）',
+          usd: 5.73, local: 'ARS（未标注具体金额）', caliber: '未标注',
           source: 'geopriced.com', url: '', fetched: '2026-09', conf: '低',
           note: '是否含税未知，未核验。历史上阿根廷区税费复杂，实际支付价可能显著高于标价。此条是「账面最优」，也是全表置信度最低的一条。'
         }
@@ -122,6 +126,7 @@ window.PRICING_DATA = {
     {
       id: 'JP',
       name: '日本区',
+      short: '日本',
       pending: true,
       prices: {}
     }

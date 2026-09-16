@@ -3,105 +3,111 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>对比矩阵与价格明细 —— Codex 单位成本</title>
-<meta name="description" content="全部已采集的 Codex 档位 × 区域配置，按实际单位成本排序，并逐条标注价格口径、来源、抓取时间与置信度。">
+<title>各地区实付价排名 —— Codex 单位成本</title>
+<meta name="description" content="Codex 各区域实付价排名，按档位切换。每条价格逐条标注口径（Web / iOS / Google Play）、来源、抓取时间与置信度。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Codex 各地区实付价排名 —— 连口径一起给你">
+<meta property="og:description" content="同一个档位在不同区域差多少？逐条标注口径、来源、时点与置信度，不标口径的价格表等于三个数混在一起。">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary">
 <link rel="stylesheet" href="assets/styles.css">
 </head>
-<body>
+<body data-view="price">
 
-<header class="nav">
-  <div class="inner">
-    <a class="brand" href="index.html">Codex 单位成本</a>
-    <nav>
-      <a href="index.html">结论与计算器</a>
-      <a class="on" href="compare.html">各区实付价</a>
-      <a href="method.html">方法论与数据来源</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="index.html"><i class="mark"></i><span class="bn">Codex 单位成本</span></a>
+    <nav class="tabs">
+      <a href="index.html">档位对比</a>
+      <a class="on" href="compare.html">地区对比</a>
     </nav>
+    <div class="topbar-r">
+      <span class="fxchip"><i class="dot"></i>1 USD = <b id="fxRate">6.7268</b>&nbsp;CNY</span>
+      <a class="toplink" href="method.html">方法论与来源</a>
+    </div>
   </div>
 </header>
 
-<main class="wrap">
+<main class="page">
 
-  <h1>全部配置，排在一张表上</h1>
-  <p class="sub">按实际单位成本升序。重置红利对所有档位等比例生效，<strong>不改变排序</strong>，只压低整体水位。</p>
+  <div class="page-head">
+    <h1>各地区实付价，连口径一起给你</h1>
+    <p>同一个档位在不同区域的价格差多少？先选一个档位，再看它在各区的排名。<strong>这个赛道的失真来源不是数据错，是口径混</strong> —— Web 官网价、iOS 内购价、Google Play 内购价是三套独立定价，所以每条价格都必须标清身份。</p>
+  </div>
 
-  <section class="card">
-    <h2><span class="n">01</span>重置参数</h2>
-    <p class="hint">这两个参数只影响绝对水位，不影响排序。改成你自己的情况看看。</p>
-    <div class="grid2">
-      <div>
-        <label for="u">重置利用率 —— 重置发生后你能吃掉多少额度</label>
-        <input type="range" id="u" min="0" max="100" step="5" value="50">
-        <div class="rowval"><span>0%（完全不吃）</span><b id="uval">50%</b></div>
-      </div>
-      <div>
-        <label for="R">月均全局重置次数</label>
-        <input type="number" id="R" min="0" max="30" step="0.1" value="7.3">
-        <div class="rowval"><span>默认 7.3 = 30 ÷ 4.1 天中位间隔</span></div>
-      </div>
+  <div class="pillbar" id="tierPills"></div>
+
+  <div class="cols">
+
+    <div class="col-main">
+      <section class="panel">
+        <div class="panel-head">
+          <h2>实付价排名</h2>
+          <span class="panel-sub">按折人民币升序</span>
+        </div>
+        <div class="tablewrap">
+          <table class="rk">
+            <thead>
+              <tr>
+                <th>排名</th>
+                <th>地区</th>
+                <th class="r">折人民币</th>
+                <th>相对水位</th>
+                <th>置信度</th>
+              </tr>
+            </thead>
+            <tbody id="rankBody"></tbody>
+          </table>
+        </div>
+        <p class="note" id="rankNote"></p>
+      </section>
     </div>
-  </section>
 
-  <section class="card">
-    <h2><span class="n">02</span>配置对比矩阵</h2>
-    <div class="legend">
-      <span><i class="sw" style="background:var(--best)"></i>单位成本最低（账面最优）</span>
-      <span><i class="sw" style="background:var(--acc)"></i>中间档位</span>
-      <span><i class="sw" style="background:#B4B2A9"></i>单位成本最高</span>
-      <span><i class="sw" style="background:#E4E4DF"></i>数据缺失，未参与排序</span>
-    </div>
-    <div class="tablewrap">
-      <table id="matrix">
-        <thead>
-          <tr>
-            <th>配置</th>
-            <th class="num">月付（¥）</th>
-            <th class="num">倍率</th>
-            <th class="num">名义单位成本（¥）</th>
-            <th class="num">实际单位成本（¥）</th>
-            <th class="num">每 ¥100 产能</th>
-            <th>相对水位</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-    <p class="note" id="matrixNote"></p>
-  </section>
+    <aside class="col-side">
+      <div class="side-card" id="bestCard"></div>
+      <div class="side-card" id="distCard"></div>
+    </aside>
 
-  <section class="card">
-    <h2><span class="n">03</span>价格明细与口径</h2>
-    <p class="hint">这是本产品的信任核心。每条价格都必须可追溯到口径、来源与时点。读不懂的口径就是不可用的价格。</p>
+  </div>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>价格明细与口径</h2>
+      <span class="panel-sub">本产品的信任核心</span>
+    </div>
+    <p class="hint">每条价格都要能追溯到口径、来源与时点。读不懂的口径，就是不可用的价格。</p>
     <p class="hint mobonly">表格较宽，可左右滑动查看。</p>
-    <div class="tablewrap">
-      <table id="prices">
+    <div class="tablewrap keep">
+      <table class="detail">
         <thead>
           <tr>
-            <th>区域</th><th>档位</th><th>本币标价</th><th>口径</th>
-            <th class="num">折人民币</th><th>来源</th><th>抓取时间</th><th>置信度</th>
+            <th>区域</th><th>档位</th><th class="r">本币标价</th><th>口径</th>
+            <th class="r">折人民币</th><th>来源</th><th class="r">抓取</th><th>置信度</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody id="priceBody"></tbody>
       </table>
     </div>
     <p class="note">
-      置信度只看两件事：口径是否明确（Web / iOS / Google Play）、时点是否明确。
-      <strong>置信度高不等于该区域可以正常订阅</strong>，也不代表我们推荐任何区域。
+      置信度只看两件事：<strong>口径是否明确</strong>（Web / iOS / Google Play）、<strong>时点是否明确</strong>。
+      置信度高<strong>不等于该区域可以正常订阅</strong>，也不代表我们推荐任何区域。
     </p>
   </section>
 
-  <section class="card">
-    <h2><span class="n">04</span>三条读表须知</h2>
-    <ul>
-      <li><strong>便宜的往往最不可信。</strong>排名第一的配置置信度通常最低 —— 这既是这类信息长期不可用的原因，也是本页把置信度与价格并排展示的原因。</li>
-      <li><strong>本币标价不等于实付。</strong>是否含税、是否叠加平台费，多数来源并未说明。折人民币仅为便于横向比较，汇率与本页其他数字同一时点。</li>
-      <li><strong>缺失就是缺失。</strong>没有已核验价格的组合不会出现在排序里，也不会被推算价填补。</li>
-    </ul>
-    <p class="note">官方机制：OpenAI 按<strong>支付方式所属国家</strong>定价，非 IP，因此 VPN 换区虽然能看到低价但结账会失败；需要真实的当地支付方式。跨区订阅在 Apple / Google / OpenAI 条款中属灰色地带，<strong>存在封号案例</strong>。本页只陈述各地标价事实，不提供任何操作路径。</p>
+  <section class="panel">
+    <div class="panel-head"><h2>三条读表须知</h2></div>
+    <div class="doc" style="max-width:none">
+      <ul>
+        <li><strong>便宜的往往最不可信。</strong>排名第一的配置置信度通常最低 —— 这既是这类信息长期不可用的原因，也是本页把置信度与价格并排展示的原因。</li>
+        <li><strong>本币标价不等于实付。</strong>是否含税、是否叠加平台费，多数来源并未说明。折人民币仅为便于横向比较，汇率全站同一时点。</li>
+        <li><strong>缺失就是缺失。</strong>没有已核验价格的组合不会出现在排序里，也不会被推算价填补。</li>
+      </ul>
+      <p class="note">官方机制：OpenAI 按<strong>支付方式所属国家</strong>定价，非 IP，因此 VPN 换区虽然能看到低价但结账会失败；需要真实的当地支付方式。跨区订阅在 Apple / Google / OpenAI 条款中属灰色地带，<strong>存在封号案例</strong>。本页只陈述各地标价事实，不提供任何操作路径。</p>
+    </div>
   </section>
 
   <p class="foot">
-    价格数据快照更新于 <span id="metaUpdated">2026-09-16</span>，请以官方条款与实际付款页为准。<br>
+    本站为信息聚合与对比，<strong>不构成订阅建议，不提供跨区操作指引</strong>。请以官方条款与实际付款页为准。<br>
     <span id="staleness"></span>
   </p>
 
