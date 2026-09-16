@@ -25,6 +25,14 @@
 window.PRICING_DATA = {
   meta: {
     updatedAt: '2026-09-16',
+
+    /* 本批次地区价格的「观测日期」。这不是我们抓取他的日期，而是数据源自己记录的观测日。
+       聚合站（appstoreprice.org）的数据观测于 2026-06-11，距本站更新已约 3 个月。
+       这是本站当前最大的失真风险，必须对用户明示，不得当作实时价。 */
+    dataBatchObservedAt: '2026-06-11',
+    dataBatchSource: 'appstoreprice.org（App Store 官方页面 RSC 载荷解析）',
+    dataBatchStaleness: '约 3 个月（观测日 2026-06-11）',
+
     officialPricingUrl: 'https://developers.openai.com/codex/pricing',
     officialLimitsUrl: 'https://www.chatgpt.com/codex/pricing',
     weeksPerMonth: 4.33,
@@ -86,8 +94,8 @@ window.PRICING_DATA = {
           usd: 15.89, cny: 106.89, local: '₱999 PHP', caliber: 'iOS App Store 内购',
           source: 'App Store 菲律宾区（经 appstoreprice.org 聚合核对）',
           url: 'https://apps.apple.com/ph/app/id6448311069',
-          fetched: '2026-09-16', conf: '中',
-          note: '这是 iOS 内购口径，不是 Web 价。此前流传的三个数字差异已定位：¥109.82 ≈ 本条目（iOS 内购）；geopriced 报 $9.76 疑为 Web 或未含税口径；itscheaper.in 报 ₱1,200 疑为含税或另一时点。三者为口径差异，不是互相证伪。'
+          fetched: '2026-06-11', conf: '中',
+          note: '32 区实测排名第 1（¥106.79），是本轮唯一确认的全球最低区。此前流传的三个数字差异已定位：¥109.82 ≈ 本条目（iOS 内购）；geopriced 报 $9.76 疑为 Web 或未含税口径；itscheaper.in 报 ₱1,200 疑为含税或另一时点。三者为口径差异，不是互相证伪。'
         },
         pro20: {
           usd: 164.93, cny: 1109.41, local: '¥1,109.41', caliber: 'iOS App Store 内购',
@@ -104,9 +112,11 @@ window.PRICING_DATA = {
       pending: false,
       prices: {
         plus: {
-          usd: 14.00, local: '₺（未标注具体金额）', caliber: '未标注',
-          source: 'aisubscriptioncomparison.com', url: '', fetched: '2026-09', conf: '低',
-          note: '区间 $13–15。另有 2026-05 来源报 ¥80–102（≈$11–14），差异未解释。未标口径，无法判断是 Web 还是 iOS。'
+          usd: 20.56, cny: 138.27, local: '₺999,99', caliber: 'iOS App Store 内购',
+          source: 'App Store 土耳其区（经 appstoreprice.org 聚合核对）',
+          url: 'https://apps.apple.com/tr/app/id6448311069',
+          fetched: '2026-06-11', conf: '中',
+          note: 'iOS 内购口径，32 区中排第 11 位（¥138.27），并非低价区。此前录得的 $14 来自未标口径的二手来源，违反本站「缺口径不收录」原则，已废弃。'
         }
       }
     },
@@ -117,9 +127,11 @@ window.PRICING_DATA = {
       pending: false,
       prices: {
         plus: {
-          usd: 5.73, local: 'ARS（未标注具体金额）', caliber: '未标注',
-          source: 'geopriced.com', url: '', fetched: '2026-09', conf: '低',
-          note: '是否含税未知，未核验。历史上阿根廷区税费复杂，实际支付价可能显著高于标价。此条是「账面最优」，也是全表置信度最低的一条。'
+          usd: 19.99, cny: 134.44, local: 'USD 19.99', caliber: 'iOS App Store 内购',
+          source: 'App Store 阿根廷区（经 appstoreprice.org 聚合核对）',
+          url: 'https://apps.apple.com/ar/app/id6448311069',
+          fetched: '2026-06-11', conf: '中',
+          note: '阿根廷区直接以美元标价（USD 19.99），与美区同价，32 区中并列第 9 —— 它不是低价区。此前录得的 $5.73 来自未标口径的 geopriced.com，属严重失真，违反本站「缺口径不收录」原则，已废弃。'
         }
       }
     },
