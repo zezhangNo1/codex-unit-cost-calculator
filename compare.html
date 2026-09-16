@@ -3,113 +3,93 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>各地区实付价排名 —— Codex 单位成本</title>
-<meta name="description" content="Codex 各区域实付价排名，按档位切换。每条价格逐条标注口径（Web / iOS / Google Play）、来源、抓取时间与置信度。">
+<title>Codex 各地区价格排名 —— 32 个地区实测</title>
+<meta name="description" content="Codex 各档位在 32 个 App Store 地区的月付价格排名，按折人民币升序。每条标价都可追溯到观测日期。">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Codex 各地区实付价排名 —— 连口径一起给你">
-<meta property="og:description" content="同一个档位在不同区域差多少？逐条标注口径、来源、时点与置信度，不标口径的价格表等于三个数混在一起。">
+<meta property="og:title" content="Codex 各地区价格排名 —— 32 个地区实测">
+<meta property="og:description" content="同一个档位在不同地区差多少？32 个地区的实测标价，按折人民币升序排列。">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary">
 <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body data-view="price">
 
-<header class="topbar">
-  <div class="topbar-in">
-    <a class="brand" href="index.html"><i class="mark"></i><span class="bn">Codex 单位成本</span></a>
-    <nav class="tabs">
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="index.html"><i class="mark">C</i><span class="bn">Codex 全球价格</span></a>
+    <nav class="seg">
       <a href="index.html">档位对比</a>
       <a class="on" href="compare.html">地区对比</a>
     </nav>
-    <div class="topbar-r">
-      <span class="fxchip"><i class="dot"></i>1 USD = <b id="fxRate">6.7268</b>&nbsp;CNY</span>
-      <a class="toplink" href="method.html">方法论与来源</a>
+    <div class="top-r">
+      <span class="chip">1 USD = <b id="fxRate">6.7268</b> CNY</span>
+      <a class="tlink" href="method.html">口径与方法</a>
     </div>
   </div>
 </header>
 
-<main class="page">
+<main class="wrap">
 
-  <div class="page-head">
-    <h1>各地区实付价，连口径一起给你</h1>
-    <p>同一个档位在不同区域的价格差多少？先选一个档位，再看它在各区的排名。<strong>这个赛道的失真来源不是数据错，是口径混</strong> —— Web 官网价、iOS 内购价、Google Play 内购价是三套独立定价，所以每条价格都必须标清身份。</p>
-  </div>
-
-  <div class="pillbar" id="tierPills"></div>
-
-  <div class="cols">
-
-    <div class="col-main">
-      <section class="panel">
-        <div class="panel-head">
-          <h2>实付价排名</h2>
-          <span class="panel-sub">按折人民币升序</span>
-        </div>
-        <div class="tablewrap">
-          <table class="rk">
-            <thead>
-              <tr>
-                <th>排名</th>
-                <th>地区</th>
-                <th class="r">折人民币</th>
-                <th>相对水位</th>
-                <th>置信度</th>
-              </tr>
-            </thead>
-            <tbody id="rankBody"></tbody>
-          </table>
-        </div>
-        <p class="note" id="rankNote"></p>
-      </section>
+  <section class="apphead">
+    <div class="appicon">C</div>
+    <div>
+      <h1>ChatGPT <span class="dim">· Codex 订阅</span></h1>
+      <p class="sub" id="appSub"></p>
     </div>
-
-    <aside class="col-side">
-      <div class="side-card" id="bestCard"></div>
-      <div class="side-card" id="distCard"></div>
-    </aside>
-
-  </div>
-
-  <section class="panel">
-    <div class="panel-head">
-      <h2>价格明细与口径</h2>
-      <span class="panel-sub">本产品的信任核心</span>
+    <div class="apphead-r">
+      <span class="chip" id="batchChip"></span>
     </div>
-    <p class="hint">每条价格都要能追溯到口径、来源与时点。读不懂的口径，就是不可用的价格。</p>
-    <p class="hint mobonly">表格较宽，可左右滑动查看。</p>
-    <div class="tablewrap keep">
-      <table class="detail">
+  </section>
+
+  <div class="pills" id="tierPills"></div>
+
+  <section class="hero">
+    <div class="hero-l">
+      <p class="k">最低价格</p>
+      <div class="big" id="heroBig">—</div>
+      <div class="owner" id="heroOwner"></div>
+      <p class="save" id="heroSave"></p>
+    </div>
+    <div class="hero-r">
+      <p class="k" id="heroRightTitle">价格分布</p>
+      <div id="heroStats"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <header class="card-h">
+      <h2 id="rankTitle">全球价格</h2>
+      <span class="sub" id="rankSub"></span>
+    </header>
+    <div class="tablewrap">
+      <table class="tbl">
         <thead>
           <tr>
-            <th>区域</th><th>档位</th><th class="r">本币标价</th><th>口径</th>
-            <th class="r">折人民币</th><th>来源</th><th class="r">抓取</th><th>置信度</th>
+            <th class="rk">#</th>
+            <th>地区</th>
+            <th class="r">本币标价</th>
+            <th class="r">折人民币</th>
+            <th class="bar-cell"></th>
           </tr>
         </thead>
-        <tbody id="priceBody"></tbody>
+        <tbody id="rankBody"></tbody>
       </table>
     </div>
-    <p class="note">
-      置信度只看两件事：<strong>口径是否明确</strong>（Web / iOS / Google Play）、<strong>时点是否明确</strong>。
-      置信度高<strong>不等于该区域可以正常订阅</strong>，也不代表我们推荐任何区域。
-    </p>
+    <p class="card-foot" id="rankFoot"></p>
   </section>
 
-  <section class="panel">
-    <div class="panel-head"><h2>三条读表须知</h2></div>
-    <div class="doc" style="max-width:none">
+  <section class="card">
+    <header class="card-h"><h2>怎么读这张表</h2></header>
+    <div class="doc">
       <ul>
-        <li><strong>便宜的往往最不可信。</strong>排名第一的配置置信度通常最低 —— 这既是这类信息长期不可用的原因，也是本页把置信度与价格并排展示的原因。</li>
-        <li><strong>本币标价不等于实付。</strong>是否含税、是否叠加平台费，多数来源并未说明。折人民币仅为便于横向比较，汇率全站同一时点。</li>
-        <li><strong>缺失就是缺失。</strong>没有已核验价格的组合不会出现在排序里，也不会被推算价填补。</li>
+        <li><strong>折人民币只是尺子。</strong>全站用同一个汇率把本币换算过来，方便横向比。你实际付款时用的是本币。</li>
+        <li><strong>同一档位换了地区，买到的东西完全一样。</strong>额度、模型、功能都不因地区而变，差的只有价格。</li>
+        <li><strong>最便宜的往往不是最容易买到的。</strong>本站只陈述标价事实 —— OpenAI 与 Apple 按<strong>支付方式所属国家</strong>定价，跨区订阅在条款中属灰色地带且存在封号案例，我们不给任何操作路径。</li>
       </ul>
-      <p class="note">官方机制：OpenAI 按<strong>支付方式所属国家</strong>定价，非 IP，因此 VPN 换区虽然能看到低价但结账会失败；需要真实的当地支付方式。跨区订阅在 Apple / Google / OpenAI 条款中属灰色地带，<strong>存在封号案例</strong>。本页只陈述各地标价事实，不提供任何操作路径。</p>
     </div>
   </section>
 
-  <p class="foot">
-    本站为信息聚合与对比，<strong>不构成订阅建议，不提供跨区操作指引</strong>。请以官方条款与实际付款页为准。<br>
-    <span id="staleness"></span>
-  </p>
+  <p class="foot" id="foot"></p>
 
 </main>
 

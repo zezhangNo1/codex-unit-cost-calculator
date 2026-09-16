@@ -3,148 +3,120 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>方法论与数据来源 —— Codex 单位成本</title>
-<meta name="description" content="Codex 单位成本的计算公式、参数来源、口径冲突说明与局限性。透明度比数字本身更重要。">
+<title>口径与方法 —— Codex 全球价格</title>
+<meta name="description" content="Codex 全球价格的数据口径、单位成本算法、32 个地区 App Store 价格的来源与观测时点，以及本站的局限性。">
 <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body data-view="method">
 
-<header class="topbar">
-  <div class="topbar-in">
-    <a class="brand" href="index.html"><i class="mark"></i><span class="bn">Codex 单位成本</span></a>
-    <nav class="tabs">
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="index.html"><i class="mark">C</i><span class="bn">Codex 全球价格</span></a>
+    <nav class="seg">
       <a href="index.html">档位对比</a>
       <a href="compare.html">地区对比</a>
     </nav>
-    <div class="topbar-r">
-      <span class="fxchip"><i class="dot"></i>1 USD = <b id="fxRate">6.7268</b>&nbsp;CNY</span>
-      <a class="toplink" href="method.html">方法论与来源</a>
+    <div class="top-r">
+      <span class="chip">1 USD = <b id="fxRate">6.7268</b> CNY</span>
+      <a class="tlink" href="method.html">口径与方法</a>
     </div>
   </div>
 </header>
 
-<main class="page">
+<main class="wrap">
 
-  <div class="page-head">
-    <h1>方法论</h1>
-    <p>同类站点对「平均重置间隔」的口径能差出一倍以上（4.1 天中位 vs 8.9 天平均）。所以这个赛道的核心资产不是数据，是<strong>数据口径的透明度</strong>。</p>
-  </div>
+  <section class="apphead">
+    <div class="appicon">C</div>
+    <div>
+      <h1>口径与方法</h1>
+      <p class="sub">这个赛道不缺口径混乱的价格表，缺的是能追溯的口径</p>
+    </div>
+  </section>
 
-  <p class="disclaimer">
-    <b>先说明立场</b>
-    本站只做信息聚合与对比，只陈述各地标价事实，<strong>不提供任何跨区订阅的操作路径</strong>。所有数字都是估算，以你付款页实际显示为准。
-  </p>
+  <section class="verdict">
+    <p class="k">一句话</p>
+    <h2>同一个档位会因为<strong>支付渠道不同</strong>报出完全不同的价格。不标口径的价格表，看起来精确，实际是几个数混在一起。</h2>
+    <p class="note">所以本站只收录一个口径：<strong>iOS App Store 内购（月付）</strong>。缺口径的价格一律不收。</p>
+  </section>
 
-  <div class="doc">
-
-    <section class="panel">
-      <h2><span class="n">01</span>计算公式</h2>
-      <pre>名义单位成本 = 月费(折人民币) ÷ 倍率
-
-重置增益系数 G = (<span id="metaWeeks">4.33</span> + R × u) ÷ <span id="metaWeeks2">4.33</span>
-
-实际单位成本 = 月费(折人民币) ÷ (倍率 × G)
-
-每 ¥100 产能   = 倍率 × G ÷ 月费(折人民币) × 100</pre>
-
-      <h3>参数含义</h3>
-      <ul>
-        <li><code>月费</code> —— 该区域该档位的实付价，统一折成人民币展示，逐条标注口径与时点。</li>
-        <li><code>倍率</code> —— 官方公布的 Plus 倍数（1 / 5 / 20），来自官方定价页。</li>
-        <li><code>R</code> —— 月均全局重置次数。默认 7.3，依据是 <span id="metaResetBasis">各追踪站中位间隔 4.1 天</span>。可自行修改。</li>
-        <li><code>u</code> —— 重置利用率，<strong>用户自评参数，不是客观事实</strong>。</li>
-        <li><code>4.33</code> —— 每月周数，固定值。</li>
-        <li><code>汇率</code> —— 当前 <span id="metaFx">6.7268</span>，来自 <a href="https://open.er-api.com/v6/latest/USD" target="_blank" rel="noopener">open.er-api.com</a>（公开接口，免 Key）。全站<strong>统一使用同一时点汇率</strong>，避免跨来源比较时被汇率差污染。</li>
+  <section class="card">
+    <header class="card-h"><h2>01 · 单位成本怎么算</h2></header>
+    <div class="doc">
+      <p style="font-size:14px;color:var(--ink)">
+        每 1× 额度的成本 = 该区月付（折人民币） ÷ 额度倍数
+      </p>
+      <ul style="margin-top:12px">
+        <li><code>额度倍数</code> —— 官方公布的 Plus 倍数，1× / 5× / 20×，取自 OpenAI 官方定价页。</li>
+        <li><code>月付</code> —— 该地区 App Store 的实际标价，按全站唯一汇率折成人民币。</li>
       </ul>
-      <p class="note" id="metaWorked"></p>
+      <p class="note" style="margin-top:12px">
+        为什么用倍数而不是绝对额度：<strong>官方从不公布「每月等于多少 credits」的绝对值</strong>，只给估算区间，且区间宽得几乎没有决策价值
+        （以 Plus 为例，同一档位按模型不同可差 10 倍以上）。因此本站不换算 token，只回到唯一可比的量纲 —— 1× Plus 额度。
+      </p>
+      <p class="note">
+        重置（banked rate-limit reset）对<strong>所有档位等比例生效</strong>，因此它不改变任何档位之间的相对排序，只整体压低水位。
+        这是本站不把它放进主表的原因：<strong>它不影响你该选哪一档。</strong>
+      </p>
+    </div>
+  </section>
 
-      <h3>口径比数字更重要 —— 这是本站与同类站最大的分野</h3>
-      <p>同一个档位在同一个区域，会因为<strong>支付渠道不同</strong>而报出完全不同的价格：Web 官网订阅、iOS App Store 内购、Google Play 内购是三套独立定价。不标口径的价格表，看起来精确，实际上是三个数混在一起。</p>
-      <p>一个真实例子：菲律宾区 Plus 曾在中文互联网上并流传三个数字 —— <code>$9.76</code>、<code>¥109.82</code>、<code>₱1,200</code>，相差近 2 倍。经核对，其中 <code>₱999（≈¥106.89）</code> 是 <strong>iOS App Store 内购</strong>价（App Store 菲律宾区，且是全球 App Store 最低），另两个疑为 Web 价或含税口径。<strong>它们不是互相证伪，而是量的是三件不同的事。</strong>因此本站的每条价格都必须写清口径，缺口径的价格不收录。</p>
-    </section>
-
-    <section class="panel">
-      <h2><span class="n">02</span>为什么用「倍率」当分母</h2>
-      <p>官方只公布<strong>倍率</strong>，从不公布「每月等于多少 credits」的绝对值。官方给出的是<em>估算区间</em>，且区间宽得几乎没有决策价值 —— 以 Plus 为例，同一档位按模型不同可差 10 倍以上（Sol 10–100 条 / 5 小时，Luna 250–2,000 条 / 5 小时）。</p>
-      <p>因此本站<strong>不换算成 token</strong>，而是回到唯一可比的量纲：<strong>1× Plus 额度</strong>。这样做的好处是，任何两个配置的比较都不依赖对「agentic 任务平均消耗多少 credits」的猜测。</p>
-      <p>官方 credits 计价表（供参考，本站不用于计算）：Sol 输入 125 credits / 1M、缓存输入 12.5 / 1M、输出 750 / 1M；Terra 62.5 / 6.25 / 375；Luna 25 / 2.5 / 150。</p>
-    </section>
-
-    <section class="panel">
-      <h2><span class="n">03</span>重置为什么只是一个参数</h2>
-      <p>这一点值得单独说清楚，因为它是本站与「重置时钟站」最大的分野。</p>
-      <ul>
-        <li>重置是<strong>全局事件</strong>，对所有档位一视同仁。</li>
-        <li>因此它<strong>不改变任何档位之间的相对排序</strong>，只整体压低所有配置的单位成本水位。</li>
-        <li>换句话说：<strong>重置不改变你「该选哪个」，只改变「你实际划不划算」。</strong></li>
+  <section class="card">
+    <header class="card-h"><h2>02 · 数据从哪来</h2></header>
+    <div class="doc">
+      <p>区域价格来自 <strong>App Store 各地区 storefront 的实际标价</strong>，经聚合站 appstoreprice.org 的页面数据解析后取用，覆盖 App Store 的 <strong>32 个地区</strong>。</p>
+      <ul style="margin-top:12px">
+        <li>抓取与生成是脚本化的：<code>node tools/appstore-prices.mjs --json</code> 取原始数据，<code>node tools/build-data.mjs</code> 生成站点数据文件。</li>
+        <li>生成的 <code>assets/data.js</code> 是派生物，<strong>不手工编辑</strong>。要改口径就改生成器，再重新生成 —— 这样每一版数据都能被复现。</li>
+        <li>汇率取 <a href="https://open.er-api.com/v6/latest/USD" target="_blank" rel="noopener">open.er-api.com</a>（公开接口、免 Key）。<strong>全站只用这一个汇率</strong>，不使用来源方各自的折算值，避免同一页面里出现两个汇率。</li>
       </ul>
-      <p>所以本站把重置做成计算器里的一个滑块，而不是首页的一个大时钟。同类站点把重置当主菜，结果流量是脉冲式的（重置日爆发、平时低谷），广告收入极不稳定 —— 这不是执行力问题，是定位问题。</p>
-      <p class="note">另需注意：各追踪站对「重置间隔」的口径互相矛盾（中位 4.1 天、平均 8.9 天、中位 3.2 天；次数 35 / 48 / 52 不等）。差异来源可能是起算点、是否计入 banked reset、是否只统计已确认的重置。默认值取中位口径，但请把它当作一个可调参数而非事实。</p>
-    </section>
+    </div>
+    <p class="card-foot">
+      观测日是指<strong>数据源自己记录的观测时点</strong>，不是我们的抓取时点。两者会差一段时间，页面上分开标注，不做模糊处理。
+    </p>
+  </section>
 
-    <section class="panel">
-      <h2><span class="n">04</span>官方机制（必读）</h2>
-      <ul>
-        <li>OpenAI 按<strong>支付方式所属国家</strong>定价，<strong>不是按 IP</strong>。</li>
-        <li>用 VPN 换区虽然能看到低价，但<strong>结账会失败</strong>。</li>
-        <li>需要真实的当地支付方式，通常要求当地居住身份。</li>
-        <li>跨区订阅在 Apple / Google / OpenAI 条款中属灰色地带，<strong>存在封号案例</strong>。</li>
-        <li>额度有两层限制：5 小时滚动窗口 + 周上限，两者独立计算。</li>
-        <li>官方提供 <strong>banked rate-limit reset</strong>（受邀赠 1 次，30 天有效），属于限时机制。</li>
+  <section class="card">
+    <header class="card-h"><h2>03 · 一次真实的口径事故</h2></header>
+    <div class="doc">
+      <p>本站早前的版本里，阿根廷区 Plus 录的是 <code>$5.73</code>、土耳其区录的是 <code>$14</code>，都来自<strong>未标注口径的二手聚合源</strong>。用 App Store 实测后发现两条都错了：</p>
+      <ul style="margin-top:12px">
+        <li><strong>阿根廷</strong>实际是 <code>USD 19.99</code> —— 注意它<strong>直接用美元标价</strong>，因此不随比索汇率打折。真实排名是 32 区里的第 9，与美区同价。</li>
+        <li><strong>土耳其</strong>实际是 <code>₺999.99</code>，排第 11。</li>
       </ul>
-      <p class="note">本站不鼓励、不指导任何跨区订阅行为。列出这些机制是为了让读者理解：为什么同一档位在不同来源会报出完全不同的价格。</p>
-    </section>
+      <p class="note" style="margin-top:12px">
+        错的原因不是抓不到数据，是<strong>收录了没标口径的来源</strong> —— 违反了本站自己定的第一条规则。修正已提交，版本历史可查。
+        把这件事写在这里，是因为它恰好说明了为什么「口径」这一栏值得单列：<strong>最贵的错误往往长得最像正确答案。</strong>
+      </p>
+    </div>
+  </section>
 
-    <section class="panel">
-      <h2><span class="n">05</span>数据来源与维护</h2>
-      <h3>官方来源（高置信度）</h3>
+  <section class="card">
+    <header class="card-h"><h2>04 · 官方机制（必读）</h2></header>
+    <div class="doc">
       <ul>
-        <li><a id="metaPricingUrl" href="https://developers.openai.com/codex/pricing" target="_blank" rel="noopener">developers.openai.com/codex/pricing</a> —— 官方倍率表、credits 计价表、各档月费</li>
-        <li><a id="metaLimitsUrl" href="https://www.chatgpt.com/codex/pricing" target="_blank" rel="noopener">chatgpt.com/codex/pricing</a> —— 官方 usage limits 表</li>
+        <li>OpenAI 与 Apple 均按<strong>支付方式所属国家</strong>定价，<strong>不是按 IP</strong>。</li>
+        <li>用 VPN 换区能看到低价，但<strong>结账会失败</strong>；需要真实的当地支付方式。</li>
+        <li>跨区订阅在 Apple / OpenAI 条款中属灰色地带，<strong>存在封号案例</strong>。</li>
+        <li>额度有两层独立限制：5 小时滚动窗口 + 周上限。</li>
       </ul>
+      <p class="note">本站不鼓励、不指导任何跨区订阅行为。列出这些机制，是为了让读者理解为什么同一档位在不同来源会报出完全不同的价格。</p>
+    </div>
+  </section>
 
-      <h3>区域价格来源（置信度较低，均为二手）</h3>
+  <section class="card">
+    <header class="card-h"><h2>05 · 局限性</h2></header>
+    <div class="doc">
       <ul>
-        <li>geopriced.com、itscheaper.in、aisubscriptioncomparison.com —— 全球价格对照站，均为静态表，多数无汇率时点、未标支付口径</li>
-        <li>中文公众号、头条等 —— 部分为 iOS App Store 实价截图，口径明确但时间戳常缺失</li>
-        <li>appstoreprice.org —— App Store 各 storefront 价格聚合站，覆盖 32 个地区，用于核对 iOS 内购口径</li>
+        <li>价格是<strong>标价事实</strong>，不等于你的实付金额。是否含税、是否叠加平台费，各地规则不同且多数未公开。</li>
+        <li>各地区 App Store 的调价<strong>并不同步</strong>，且数据本身有观测时点，可能已经变化。</li>
+        <li>折人民币只是<strong>一把尺子</strong>，你实际付款用的是本币。</li>
+        <li>覆盖的是 App Store 的 32 个地区，<strong>不是全球所有国家</strong>。</li>
+        <li>本站只做信息聚合与对比，<strong>不构成订阅建议</strong>，不承担任何因订阅决策产生的后果。</li>
       </ul>
-      <p class="note">区域价格<strong>存在多来源冲突</strong>。以菲律宾区 Plus 月费为例：<code>₱999 ≈ ¥106.89</code> 已定位为 <strong>iOS App Store 内购</strong>口径（App Store 菲律宾区，全球 App Store 最低价），此前流传的 <code>$9.76</code> 与 <code>₱1,200</code> 疑为 Web 价与含税口径。<strong>三者为口径差异，不是互相证伪</strong> —— 这也是本站把「口径」单列一栏的原因。</p>
+    </div>
+  </section>
 
-      <h3>汇率来源</h3>
-      <ul>
-        <li><a href="https://open.er-api.com/v6/latest/USD" target="_blank" rel="noopener">open.er-api.com/v6/latest/USD</a> —— 公开接口、免 Key、无需注册，当前值见上方参数表。</li>
-        <li>汇率<strong>手工更新</strong>，时点与数据快照一并展示。全站只用这一个汇率，不做多币种切换。</li>
-      </ul>
-
-      <h3>维护方式</h3>
-      <ul>
-        <li>数据以纯文本形式存放在 <code>assets/data.js</code>，每次更新都可通过版本历史追溯。</li>
-        <li>区域价格以人工采集为主并留存截图；<strong>登录后的实际价格页面无法用脚本获取</strong>。App Store 各区域内购价理论上可自动化，但需要 Apple 的令牌轮转与批量采集，存在工程门槛与条款风险，本站暂不采用。</li>
-        <li>抓不到就留空，不用推算价填补。</li>
-      </ul>
-    </section>
-
-    <section class="panel">
-      <h2><span class="n">06</span>局限性（请务必读完）</h2>
-      <ul>
-        <li>月费是<strong>估算值</strong>，以付款页实际显示为准。</li>
-        <li>倍率是官方倍数，<strong>不是额度绝对值</strong>。</li>
-        <li><code>u</code> 是用户自评参数，不是客观事实。</li>
-        <li>重置红利对所有档位等比例生效，<strong>不影响排序</strong>。</li>
-        <li>折人民币使用<strong>统一时点的汇率</strong>；但部分区域价格本身是来源方按各自汇率折算的，跨来源比较仍存在系统性误差。</li>
-        <li>置信度只衡量「口径与时间戳是否明确」，<strong>不代表该区域可正常订阅</strong>。</li>
-        <li>本站<strong>不构成投资或订阅建议</strong>，不承担任何因订阅决策产生的后果。</li>
-      </ul>
-      <p class="note">数据快照更新于 <span id="metaUpdated">2026-09-16</span>。</p>
-    </section>
-
-  </div>
-
-  <p class="foot">
-    本站为信息聚合与对比站点，不提供跨区订阅操作指引。请以官方条款与实际付款页为准。<br>
-    <span id="staleness"></span>
-  </p>
+  <p class="foot" id="foot"></p>
 
 </main>
 

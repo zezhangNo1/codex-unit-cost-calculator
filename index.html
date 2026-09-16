@@ -3,135 +3,113 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Codex 该买哪档？Pro 5x 每块钱买到的产能和 Plus 一模一样</title>
-<meta name="description" content="按官方倍率折算成人民币，比较 Codex 各档位与各区域的单位产能成本。结论：Pro 5x 的单位成本与 Plus 完全相同，是 Pro 20x 的两倍。">
+<title>Codex 三个档位，只有 Pro 20x 在所有地区都划算 —— 全球价格对比</title>
+<meta name="description" content="Codex 三档订阅在 32 个 App Store 地区的实测价格与单位成本对比：Pro 20x 每 1× 额度稳定是 Plus 的一半；Pro 5x 则看地区，14 个地区反而比 Plus 更贵。">
 <meta property="og:type" content="website">
-<meta property="og:title" content="别急着买 Pro 5x：它每块钱买到的产能，和 Plus 一模一样">
-<meta property="og:description" content="按官方倍率折算成人民币，Pro 5x 的单位产能成本是 ¥135，与 Plus 相同，却是 Pro 20x 的两倍。">
+<meta property="og:title" content="Codex 三个档位，只有 Pro 20x 在所有地区都划算">
+<meta property="og:description" content="Pro 20x 每 1× 额度稳定是 Plus 的一半；Pro 5x 则看地区，14 个地区反而比 Plus 更贵。">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary">
 <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body data-view="unit">
 
-<header class="topbar">
-  <div class="topbar-in">
-    <a class="brand" href="index.html"><i class="mark"></i><span class="bn">Codex 单位成本</span></a>
-    <nav class="tabs">
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="index.html"><i class="mark">C</i><span class="bn">Codex 全球价格</span></a>
+    <nav class="seg">
       <a class="on" href="index.html">档位对比</a>
       <a href="compare.html">地区对比</a>
     </nav>
-    <div class="topbar-r">
-      <span class="fxchip"><i class="dot"></i>1 USD = <b id="fxRate">6.7268</b>&nbsp;CNY</span>
-      <a class="toplink" href="method.html">方法论与来源</a>
+    <div class="top-r">
+      <span class="chip">1 USD = <b id="fxRate">6.7268</b> CNY</span>
+      <a class="tlink" href="method.html">口径与方法</a>
     </div>
   </div>
 </header>
 
-<main class="page">
+<main class="wrap">
 
-  <section class="hero">
-    <div class="eyebrow"><span id="heroMeta">美区官方价</span></div>
-    <h1 id="heroTitle">同样的钱，买到多少产能</h1>
-    <p class="hero-sub" id="heroSub">按官方倍率折算，每 1× 额度要花多少钱。</p>
-
-    <div class="ruler" id="heroRuler"></div>
-    <p class="ruler-foot" id="heroFoot"></p>
-
-    <div class="hero-actions">
-      <button class="btn" type="button" id="shareBtn">生成结论图</button>
-      <a class="btn ghost" href="compare.html">看各地区实付价</a>
+  <section class="apphead">
+    <div class="appicon">C</div>
+    <div>
+      <h1>ChatGPT <span class="dim">· Codex 订阅</span></h1>
+      <p class="sub" id="appSub"></p>
     </div>
-    <p class="note" id="shareTip">结论图是 1080×1440 的竖版图片，存下来就能直接发小红书或微信。</p>
+    <div class="apphead-r">
+      <span class="chip" id="batchChip"></span>
+    </div>
   </section>
 
-  <div class="pillbar" id="tierPills"></div>
-
-  <div class="cols">
-
-    <div class="col-main">
-      <section class="panel">
-        <div class="panel-head">
-          <h2>全部配置 · 按每 1× 额度的成本</h2>
-        </div>
-        <p class="hint">同一根尺子量到底：月付 ÷ 倍率，得出每个配置买到 1× 额度要花多少钱。</p>
-        <div class="tablewrap">
-          <table class="rk">
-            <thead>
-              <tr>
-                <th>排名</th>
-                <th>配置</th>
-                <th class="r">每 1× 额度</th>
-                <th>相对水位</th>
-                <th>置信度</th>
-              </tr>
-            </thead>
-            <tbody id="rankBody"></tbody>
-          </table>
-        </div>
-        <p class="note" id="rankNote"></p>
-      </section>
-    </div>
-
-    <aside class="col-side">
-      <div class="side-card" id="bestCard"></div>
-      <div class="side-card" id="distCard"></div>
-    </aside>
-
-  </div>
-
-  <p class="disclaimer">
-    <b>口径说明</b>
-    本页价格为<strong>估算值</strong>，以你付款页实际显示为准。官方只公布<strong>倍率</strong>（Plus 1× / Pro 5x 5× / Pro 20x 20×），从未公布「每月等于多少 credits」的绝对值，因此任何「能跑多少 token」的说法都是估算。
-    OpenAI 按<strong>支付方式所属国家</strong>定价（不是按 IP）。本站只做信息聚合与对比，<strong>不提供任何跨区操作指引</strong>。
-  </p>
-
-  <section class="panel">
-    <div class="panel-head">
-      <h2>按你自己的情况算</h2>
-      <span class="panel-sub">含重置红利</span>
-    </div>
-    <p class="hint">上面那张表是名义口径（不含重置）。把重置利用率和你选的档位、支付区填进来，得到属于你的实际单位成本。</p>
-
-    <div class="grid2">
-      <div class="field">
-        <label for="plan">订阅档位</label>
-        <select id="plan"></select>
-      </div>
-      <div class="field">
-        <label for="region">支付区（按支付方式所属国，非 IP）</label>
-        <select id="region"></select>
-      </div>
-      <div class="field">
-        <label for="u">重置利用率 —— 重置发生后你能吃掉多少额度</label>
-        <input type="range" id="u" min="0" max="100" step="5" value="50">
-        <div class="rowval"><span>0%（完全不吃）</span><b id="uval">50%</b></div>
-      </div>
-      <div class="field">
-        <label for="R">月均全局重置次数</label>
-        <input type="number" id="R" min="0" max="30" step="0.1" value="7.3">
-        <div class="rowval"><span>默认 7.3 = 30 ÷ 4.1 天中位间隔</span><span>口径见方法论</span></div>
-      </div>
-    </div>
-
-    <div class="out" id="out"></div>
-    <div class="meta" id="meta"></div>
+  <section class="verdict">
+    <p class="k">结论</p>
+    <h2 id="verdictLine"></h2>
+    <p class="note" id="verdictNote"></p>
   </section>
 
-  <form class="sub" id="subForm" data-endpoint="">
-    <div class="sub-txt">
-      <h3>价格一有变化就通知你</h3>
-      <p>只发价格与口径变动，不发推广。</p>
-    </div>
-    <input type="email" placeholder="你的邮箱" required>
-    <button class="btn" type="submit">订阅更新</button>
-    <p class="sub-tip" id="subTip"></p>
-  </form>
+  <div class="plans" id="planCards"></div>
 
-  <p class="foot">
-    本站为信息聚合与对比，<strong>不构成订阅建议，不提供跨区操作指引</strong>。请以官方条款与实际付款页为准。<br>
-    <span id="staleness"></span>
-  </p>
+  <section class="card">
+    <header class="card-h">
+      <h2>每 1× 额度的成本，按地区</h2>
+      <span class="sub">共 32 个地区 · 按 Pro 20x 升序</span>
+    </header>
+    <div class="tablewrap">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th class="rk">#</th>
+            <th>地区</th>
+            <th class="r">Plus</th>
+            <th class="r">Pro 5x</th>
+            <th class="r">Pro 20x</th>
+            <th class="r">Pro 20x ÷ Plus</th>
+          </tr>
+        </thead>
+        <tbody id="unitBody"></tbody>
+      </table>
+    </div>
+    <p class="card-foot">
+      「每 1× 额度」= 月付 ÷ 额度倍数，是唯一能跨档位比较的口径。额度倍率取自 OpenAI 官方定价页，为 1× / 5× / 20×。
+      <b>Pro 5x 那一列比同行 Plus 大的地区，意味着同一笔钱在这里买 Pro 5x 不划算。</b>
+    </p>
+  </section>
+
+  <section class="card">
+    <header class="card-h">
+      <h2>各档位的最低与最高地区</h2>
+      <span class="sub" id="cheapSub"></span>
+    </header>
+    <div class="tablewrap">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>档位</th>
+            <th>最低地区</th>
+            <th class="r">最低价</th>
+            <th>最高地区</th>
+            <th class="r">最高价</th>
+            <th class="r">价差</th>
+          </tr>
+        </thead>
+        <tbody id="cheapBody"></tbody>
+      </table>
+    </div>
+    <p class="card-foot" id="cheapFoot"></p>
+  </section>
+
+  <section class="card">
+    <header class="card-h"><h2>三条读表须知</h2></header>
+    <div class="doc">
+      <ul>
+        <li><strong>这是 App Store 内购价，不是官网价。</strong>Web 官网价、iOS 内购价、Google Play 内购价是三套独立定价，混着看必然对不上。本站只收录 <b>iOS 内购（月付）</b>一个口径。</li>
+        <li><strong>额度倍率是官方唯一公布的口径。</strong>官方从不公布「每月等于多少 credits」的绝对值，因此任何「能跑多少 token」的说法都是估算。本站只用倍率，不换算 token。</li>
+        <li><strong>价格是标价事实，不是订阅建议。</strong>OpenAI 与 Apple 均按<strong>支付方式所属国家</strong>定价，跨区订阅在条款中属灰色地带且存在封号案例，本站不提供任何操作路径。</li>
+      </ul>
+    </div>
+  </section>
+
+  <p class="foot" id="foot"></p>
 
 </main>
 
