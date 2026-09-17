@@ -65,13 +65,18 @@
     <div class="doc">
       <p>区域价格来自 <strong>App Store 各地区 storefront 的实际标价</strong>，经聚合站 appstoreprice.org 的页面数据解析后取用，覆盖 App Store 的 <strong>32 个地区</strong>。</p>
       <ul style="margin-top:12px">
-        <li>抓取与生成是脚本化的：<code>node tools/appstore-prices.mjs --json</code> 取原始数据，<code>node tools/build-data.mjs</code> 生成站点数据文件。</li>
+        <li>抓取与生成是脚本化的：<code>node tools/appstore-prices.mjs --json</code> 取原始数据，<code>node tools/build-data.mjs --fetch</code> 重新抓取并生成站点数据文件。</li>
         <li>生成的 <code>assets/data.js</code> 是派生物，<strong>不手工编辑</strong>。要改口径就改生成器，再重新生成 —— 这样每一版数据都能被复现。</li>
-        <li>汇率取 <a href="https://open.er-api.com/v6/latest/USD" target="_blank" rel="noopener">open.er-api.com</a>（公开接口、免 Key）。<strong>全站只用这一个汇率</strong>，不使用来源方各自的折算值，避免同一页面里出现两个汇率。</li>
+        <li>汇率取 <a href="https://open.er-api.com/v6/latest/USD" target="_blank" rel="noopener">open.er-api.com</a>（公开接口、免 Key），<strong>每次生成都实时拉取</strong>。<strong>全站只用这一个汇率</strong>，不使用来源方各自的折算值，避免同一页面里出现两个汇率。</li>
+      </ul>
+      <p style="margin-top:14px"><strong>两个时间，分开标注，不合并成一个「更新时间」：</strong></p>
+      <ul>
+        <li><code>数据抓取日</code> —— 本站最后一次读取数据源的日期。<strong>每次刷新都会推进</strong>，反映的是本站的数据新鲜度。</li>
+        <li><code>源记录日</code> —— 数据源为这批价格记录的观测时点。<strong>App Store 内购价没有公开的实时查询接口</strong>（Apple 的 amp-api 需要轮换令牌；iTunes 查询接口只返回 App 自身的售价，不含内购；App Store 网页只带一个「有无内购」的布尔标记），因此这个日期由数据源决定，<strong>我们无法让它变新</strong>。</li>
       </ul>
     </div>
     <p class="card-foot">
-      观测日是指<strong>数据源自己记录的观测时点</strong>，不是我们的抓取时点。两者会差一段时间，页面上分开标注，不做模糊处理。
+      两者相差一段时间是<strong>正常且必然的</strong>，不是本站没更新。价格本身只在 App Store 调价时才会变，数据源也只在变动时刷新这条记录的日期；而汇率和本站抓取日每天都在推进。把两个日期都写出来，比只给一个含糊的「更新时间」更可核验 —— <strong>本站不声称实时，只声称可追溯</strong>。
     </p>
   </section>
 
@@ -108,7 +113,7 @@
     <div class="doc">
       <ul>
         <li>价格是<strong>标价事实</strong>，不等于你的实付金额。是否含税、是否叠加平台费，各地规则不同且多数未公开。</li>
-        <li>各地区 App Store 的调价<strong>并不同步</strong>，且数据本身有观测时点，可能已经变化。</li>
+        <li>各地区 App Store 的调价<strong>并不同步</strong>。本站抓取日始终是当前的，但价格本身带一个源记录日（见 02），可能已经变化。</li>
         <li>折人民币只是<strong>一把尺子</strong>，你实际付款用的是本币。</li>
         <li>覆盖的是 App Store 的 32 个地区，<strong>不是全球所有国家</strong>。</li>
         <li>本站只做信息聚合与对比，<strong>不构成订阅建议</strong>，不承担任何因订阅决策产生的后果。</li>

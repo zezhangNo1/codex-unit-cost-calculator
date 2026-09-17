@@ -89,19 +89,30 @@
       REGIONS.length + ' 个地区',
       (REGIONS.length * PLANS.length) + ' 条价格'
     ].join(' · '));
+    /* chip 两级时间：
+       前一个是我们自己抓数据的日期（每次抓取都推进，代表本站新鲜度）；
+       后一个是数据源记录的观测日（App Store 不发调价通知，这个日期由源站决定）。
+       过去只显示后一个，整站看起来像三个月前的陈货 —— 现在两个都摆出来。 */
     var chip = el('batchChip');
     if (chip) {
-      chip.textContent = '观测日 ' + (META.dataBatchObservedRange || META.dataBatchObservedAt);
-      chip.title = '这是数据源记录的观测时点，不是我们的抓取时点。来源：' + META.dataBatchSource;
+      chip.innerHTML = '数据抓取 <b>' + META.dataFetchedAt + '</b>' +
+        '<span class="dim"> · 源记录 ' + (META.srcObservedRange || META.srcObservedAt) + '</span>';
+      chip.title = '本站于 ' + META.dataFetchedAt + ' 从数据源读取；' +
+        '数据源记录的该批价格观测日为 ' + (META.srcObservedRange || META.srcObservedAt) + '。' +
+        '两者不同是正常的：App Store 内购价没有公开实时接口，源站只在价格变动时更新记录。\n来源：' + META.srcPage;
     }
   }
 
   function renderFoot() {
-    var days = Math.floor((Date.now() - new Date(META.updatedAt + 'T00:00:00').getTime()) / 86400000);
+    var days = Math.floor((Date.now() - new Date(META.dataFetchedAt + 'T00:00:00').getTime()) / 86400000);
+    var age = days <= 0 ? '就是今天' : ('距今 ' + days + ' 天');
     setHTML('foot',
       '口径：' + META.caliber + '。汇率 ' + FX.cny + ' CNY/USD（' + FX.fetched + '，' + FX.source + '）。' +
-      '数据观测日 <b>' + (META.dataBatchObservedRange || META.dataBatchObservedAt) + '</b>' +
-      '，本站更新于 ' + META.updatedAt + '（距今 ' + days + ' 天）。' +
+      '价格数据本站抓取于 <b>' + META.dataFetchedAt + '</b>（' + age + '），' +
+      '数据源记录的观测日为 ' + (META.srcObservedRange || META.srcObservedAt) + '。' +
+      '<br><span class="foot-note">为什么是两个日期：App Store 内购价没有公开的实时查询接口，' +
+      '我们只能读取数据源的记录值；数据源只在价格发生变动时才刷新该条记录的日期。' +
+      '因此「抓取日」始终是当前的，而「源记录日」反映的是这条价格最后一次被记录到的时间。</span>' +
       '<br>价格会变，且各地区的 App Store 调价并不同步，请以你付款页实际显示的金额为准。' +
       '本站只做信息聚合与对比，<strong>不构成订阅建议，不提供任何跨区操作指引</strong>。');
   }
@@ -302,7 +313,8 @@
     setHTML('rankFoot',
       '条形长度按「最低价 ÷ 本行价格」绘制，只为看相对差距，不代表绝对值。' +
       '本币标价是 App Store 在该地区的实际标价；折人民币用的是全站唯一汇率 ' + FX.cny + '。' +
-      '数据观测日 ' + (META.dataBatchObservedRange || META.dataBatchObservedAt) + '。');
+      '本站抓取于 ' + META.dataFetchedAt + '，数据源记录的观测日为 ' +
+      (META.srcObservedRange || META.srcObservedAt) + '。');
   }
 
   function stat(label, value, muted) {

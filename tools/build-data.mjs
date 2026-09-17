@@ -15,6 +15,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { fetchAppPrices } from './appstore-prices.mjs';
 
@@ -31,8 +32,38 @@ const TARGETS = [
   { src: 'ChatGPT Pro 20x', id: 'pro20', name: 'ChatGPT Pro 20x', short: 'Pro 20x', usd: 200, mult: 20 }
 ];
 
-/* 汇率：与 data.js 手工维护值保持一致，改这里改一处 */
-const FX = { cny: 6.7268, fetched: '2026-09-16', source: 'open.er-api.com（公开接口，免 Key）' };
+/* ------------------------------------------------------------------
+ * 汇率：每次生成都实时拉取，拉不到才退回上一次的已知值。
+ * 汇率和价格是两种时效性完全不同的数据，必须分开对待：
+ *   汇率 —— 每天都能拿到新的，所以它真的是「当前」的；
+ *   价格 —— App Store 内购价没有公开免授权接口，只能取数据源的记录值，
+ *          所以它天然带一个「源站记录日」，绝不可伪装成今天。
+ * ---------------------------------------------------------------- */
+const FX_FALLBACK = { cny: 6.7268, fetched: '2026-09-16', source: 'open.er-api.com（公开接口，免 Key）' };
+
+async function fetchFx() {
+  const today = new Date().toISOString().slice(0, 10);
+  const url = 'https://open.er-api.com/v6/latest/USD';
+  const pick = (j) => {
+    const cny = j && j.rates && j.rates.CNY;
+    if (!Number.isFinite(cny)) throw new Error('返回里没有 CNY');
+    return { cny: Math.round(cny * 10000) / 10000, fetched: today, source: 'open.er-api.com（公开接口，免 Key）' };
+  };
+  /* 先试内置 fetch；本机沙箱下 node 的 fetch 会连接超时，但 curl 走得通，所以留一条 curl 兜底 */
+  try {
+    const r = await fetch(url);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return pick(await r.json());
+  } catch (e1) {
+    try {
+      const out = execFileSync('curl', ['-s', '-m', '20', url], { encoding: 'utf8' });
+      return pick(JSON.parse(out));
+    } catch (e2) {
+      console.warn(`  汇率实时拉取失败（fetch: ${e1.message} / curl: ${e2.message}），沿用 ${FX_FALLBACK.fetched} 的 ${FX_FALLBACK.cny}`);
+      return FX_FALLBACK;
+    }
+  }
+}
 
 /* 本币符号。缺的退化成货币代码，不会崩。
    注意 JPY：不能写成 ¥ —— 本站的展示货币就是人民币 ¥，两个 ¥ 并列会直接看错。 */
@@ -72,7 +103,7 @@ async function loadRaw(force) {
   return raw;
 }
 
-function build(raw) {
+function build(raw, FX) {
   const byName = new Map();
   raw.subscriptions.forEach((s) => {
     /* 同名的月度订阅优先（忽略年付同名条目）：period P1M */
@@ -112,13 +143,21 @@ function build(raw) {
     };
   });
 
+  /* 两个时间必须分开、且都能各自溯源：
+       dataFetchedAt     —— 本站最后一次从数据源读取的时间（每次抓取都推进，是真的「当前」）
+       srcObservedRange  —— 数据源记录的该批价格观测日（App Store 不发调价通知，这个日期由源站决定）
+     曾经把两者混成一个「观测日」直接展示，结果整站看起来像三个月前的陈货。 */
   const observed = [...new Set(regions.flatMap((r) => Object.values(r.prices).map((p) => p.obs)))].sort();
+  const today = new Date().toISOString().slice(0, 10);
   return {
     meta: {
-      updatedAt: new Date().toISOString().slice(0, 10),
-      dataBatchObservedAt: observed[observed.length - 1] || '',
-      dataBatchObservedRange: observed.length > 1 ? `${observed[0]} ~ ${observed[observed.length - 1]}` : observed[0] || '',
-      dataBatchSource: raw.sourcePage,
+      dataFetchedAt: raw.fetchedAt || today,
+      generatedAt: today,
+      srcObservedAt: observed[observed.length - 1] || '',
+      srcObservedRange: observed.length > 1
+        ? `${observed[0]} ~ ${observed[observed.length - 1]}`
+        : (observed[0] || ''),
+      srcPage: raw.sourcePage,
       caliber: 'iOS App Store 内购（月付）',
       currencyBasis: 'CNY',
       fx: FX,
@@ -147,7 +186,9 @@ function emit(data) {
  *
  * 口径：iOS App Store 内购（月付）。
  * 汇率：全站唯一，USD → CNY 一律用 meta.fx.cny，不用来源自己的折算值。
- * 观测日：${data.meta.dataBatchObservedRange}（数据源的观测时点，不是我们的抓取时点）
+ * 两个时间，别混：
+ *   本站抓取日 = ${data.meta.dataFetchedAt}
+ *   源站记录日 = ${data.meta.srcObservedRange}（数据源记录的观测时点，不是我们抓取的那天）
  */
 `;
   return header + 'window.PRICING_DATA = ' + JSON.stringify(data, null, 2) + ';\n';
@@ -155,7 +196,8 @@ function emit(data) {
 
 const force = process.argv.includes('--fetch');
 const raw = await loadRaw(force);
-const data = build(raw);
+const FX = await fetchFx();
+const data = build(raw, FX);
 fs.writeFileSync(OUT, emit(data));
 
 /* 校验输出：条数、极值、有没有 NaN */
@@ -166,7 +208,8 @@ data.regions.forEach((r) => Object.values(r.prices).forEach((p) => {
 }));
 console.log(`\n已生成 ${path.relative(ROOT, OUT)}`);
 console.log(`  地区 ${data.regions.length} × 档位 ${data.plans.length} = ${combos} 条价格（异常 ${bad} 条）`);
-console.log(`  观测日 ${data.meta.dataBatchObservedRange}`);
+console.log(`  本站抓取日 ${data.meta.dataFetchedAt} · 源站记录日 ${data.meta.srcObservedRange}`);
+console.log(`  汇率 ${data.meta.fx.cny} CNY/USD @ ${data.meta.fx.fetched}`);
 data.plans.forEach((pl) => {
   const rows = data.regions
     .filter((r) => r.prices[pl.id])

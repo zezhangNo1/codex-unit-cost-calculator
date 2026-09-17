@@ -269,6 +269,8 @@ b,strong{font-weight:600}
 
 .foot{padding:40px 0 56px;font-size:12.5px;color:var(--ink3);line-height:1.8;max-width:78ch}
 .foot strong{color:var(--ink2)}
+/* 解释「抓取日 / 源记录日」为何不同的一段，弱化但不能省 */
+.foot-note{color:var(--ink3);opacity:.86}
 
 /* ============================ 窄屏 ============================ */
 
