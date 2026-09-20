@@ -8,21 +8,21 @@
  * 口径：iOS App Store 内购（月付）。
  * 汇率：全站唯一，USD → CNY 一律用 meta.fx.cny，不用来源自己的折算值。
  * 两个时间，别混：
- *   本站抓取日 = 2026-09-19
+ *   本站抓取日 = 2026-09-20
  *   源站记录日 = 2026-06-05 ~ 2026-06-11（数据源记录的观测时点，不是我们抓取的那天）
  */
 window.PRICING_DATA = {
   "meta": {
-    "dataFetchedAt": "2026-09-19",
-    "generatedAt": "2026-09-19",
+    "dataFetchedAt": "2026-09-20",
+    "generatedAt": "2026-09-20",
     "srcObservedAt": "2026-06-11",
     "srcObservedRange": "2026-06-05 ~ 2026-06-11",
     "srcPage": "https://appstoreprice.org/zh/apps/6448311069",
     "caliber": "iOS App Store 内购（月付）",
     "currencyBasis": "CNY",
     "fx": {
-      "cny": 6.7141,
-      "fetched": "2026-09-19",
+      "cny": 6.7184,
+      "fetched": "2026-09-20",
       "source": "open.er-api.com（公开接口，免 Key）"
     },
     "plansNote": "倍率取自 OpenAI 官方定价页；官方从不公布每月绝对额度，故不换算 token。"
@@ -70,22 +70,22 @@ window.PRICING_DATA = {
         "plus": {
           "local": "₱999",
           "currency": "PHP",
-          "usd": 15.91,
-          "cny": 106.82,
+          "usd": 15.89,
+          "cny": 106.76,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "₱6,490",
           "currency": "PHP",
-          "usd": 103.38,
-          "cny": 694.1,
+          "usd": 103.21,
+          "cny": 693.41,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "₱9,990",
           "currency": "PHP",
-          "usd": 159.13,
-          "cny": 1068.41,
+          "usd": 158.87,
+          "cny": 1067.35,
           "obs": "2026-06-11"
         }
       }
@@ -98,22 +98,22 @@ window.PRICING_DATA = {
         "plus": {
           "local": "₨4,900",
           "currency": "PKR",
-          "usd": 17.67,
-          "cny": 118.64,
+          "usd": 17.66,
+          "cny": 118.65,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "₨27,999",
           "currency": "PKR",
-          "usd": 100.98,
-          "cny": 677.99,
+          "usd": 100.93,
+          "cny": 678.09,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "₨49,900",
           "currency": "PKR",
-          "usd": 179.96,
-          "cny": 1208.27,
+          "usd": 179.87,
+          "cny": 1208.44,
           "obs": "2026-06-11"
         }
       }
@@ -126,22 +126,50 @@ window.PRICING_DATA = {
         "plus": {
           "local": "C$24.99",
           "currency": "CAD",
-          "usd": 17.88,
-          "cny": 120.05,
+          "usd": 17.86,
+          "cny": 119.99,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "C$152.99",
           "currency": "CAD",
-          "usd": 109.44,
-          "cny": 734.79,
+          "usd": 109.34,
+          "cny": 734.59,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "C$249",
           "currency": "CAD",
-          "usd": 178.12,
-          "cny": 1195.92,
+          "usd": 177.96,
+          "cny": 1195.61,
+          "obs": "2026-06-11"
+        }
+      }
+    },
+    {
+      "id": "JP",
+      "name": "日本",
+      "flag": "🇯🇵",
+      "prices": {
+        "plus": {
+          "local": "JP¥3,000",
+          "currency": "JPY",
+          "usd": 19.1,
+          "cny": 128.32,
+          "obs": "2026-06-11"
+        },
+        "pro5": {
+          "local": "JP¥16,800",
+          "currency": "JPY",
+          "usd": 106.97,
+          "cny": 718.67,
+          "obs": "2026-06-05"
+        },
+        "pro20": {
+          "local": "JP¥30,000",
+          "currency": "JPY",
+          "usd": 191.02,
+          "cny": 1283.35,
           "obs": "2026-06-11"
         }
       }
@@ -155,21 +183,21 @@ window.PRICING_DATA = {
           "local": "E£999.99",
           "currency": "EGP",
           "usd": 19.18,
-          "cny": 128.78,
+          "cny": 128.86,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "E£5,399.99",
           "currency": "EGP",
-          "usd": 103.57,
-          "cny": 695.38,
+          "usd": 103.58,
+          "cny": 695.89,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "E£9,999.99",
           "currency": "EGP",
-          "usd": 191.8,
-          "cny": 1287.76,
+          "usd": 191.81,
+          "cny": 1288.66,
           "obs": "2026-06-11"
         }
       }
@@ -182,50 +210,22 @@ window.PRICING_DATA = {
         "plus": {
           "local": "₫499,000",
           "currency": "VND",
-          "usd": 19.22,
-          "cny": 129.05,
+          "usd": 19.19,
+          "cny": 128.93,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "₫2,849,000",
           "currency": "VND",
-          "usd": 109.73,
-          "cny": 736.74,
+          "usd": 109.57,
+          "cny": 736.14,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "₫4,999,000",
           "currency": "VND",
-          "usd": 192.53,
-          "cny": 1292.67,
-          "obs": "2026-06-11"
-        }
-      }
-    },
-    {
-      "id": "JP",
-      "name": "日本",
-      "flag": "🇯🇵",
-      "prices": {
-        "plus": {
-          "local": "JP¥3,000",
-          "currency": "JPY",
-          "usd": 19.25,
-          "cny": 129.25,
-          "obs": "2026-06-11"
-        },
-        "pro5": {
-          "local": "JP¥16,800",
-          "currency": "JPY",
-          "usd": 107.81,
-          "cny": 723.85,
-          "obs": "2026-06-05"
-        },
-        "pro20": {
-          "local": "JP¥30,000",
-          "currency": "JPY",
-          "usd": 192.51,
-          "cny": 1292.53,
+          "usd": 192.25,
+          "cny": 1291.61,
           "obs": "2026-06-11"
         }
       }
@@ -239,21 +239,21 @@ window.PRICING_DATA = {
           "local": "R$99.90",
           "currency": "BRL",
           "usd": 19.45,
-          "cny": 130.59,
+          "cny": 130.67,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "R$524.90",
           "currency": "BRL",
           "usd": 102.19,
-          "cny": 686.11,
+          "cny": 686.55,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "R$999.90",
           "currency": "BRL",
           "usd": 194.67,
-          "cny": 1307.03,
+          "cny": 1307.87,
           "obs": "2026-06-11"
         }
       }
@@ -266,22 +266,22 @@ window.PRICING_DATA = {
         "plus": {
           "local": "Rp349,000",
           "currency": "IDR",
-          "usd": 19.67,
-          "cny": 132.07,
+          "usd": 19.63,
+          "cny": 131.88,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "Rp1,889,000",
           "currency": "IDR",
-          "usd": 106.48,
-          "cny": 714.92,
+          "usd": 106.27,
+          "cny": 713.96,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "Rp3,499,000",
           "currency": "IDR",
-          "usd": 197.23,
-          "cny": 1324.22,
+          "usd": 196.84,
+          "cny": 1322.45,
           "obs": "2026-06-11"
         }
       }
@@ -295,21 +295,21 @@ window.PRICING_DATA = {
           "local": "$19.99",
           "currency": "USD",
           "usd": 19.99,
-          "cny": 134.21,
+          "cny": 134.3,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "$100",
           "currency": "USD",
           "usd": 100,
-          "cny": 671.41,
+          "cny": 671.84,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "$200",
           "currency": "USD",
           "usd": 200,
-          "cny": 1342.82,
+          "cny": 1343.68,
           "obs": "2026-06-11"
         }
       }
@@ -323,21 +323,21 @@ window.PRICING_DATA = {
           "local": "$19.99",
           "currency": "USD",
           "usd": 19.99,
-          "cny": 134.21,
+          "cny": 134.3,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "$100",
           "currency": "USD",
           "usd": 100,
-          "cny": 671.41,
+          "cny": 671.84,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "$200",
           "currency": "USD",
           "usd": 200,
-          "cny": 1342.82,
+          "cny": 1343.68,
           "obs": "2026-06-11"
         }
       }
@@ -350,22 +350,50 @@ window.PRICING_DATA = {
         "plus": {
           "local": "₺999.99",
           "currency": "TRY",
-          "usd": 20.52,
-          "cny": 137.77,
+          "usd": 20.5,
+          "cny": 137.73,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "₺5,299.99",
           "currency": "TRY",
-          "usd": 108.76,
-          "cny": 730.23,
+          "usd": 108.65,
+          "cny": 729.95,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "₺9,999.99",
           "currency": "TRY",
-          "usd": 205.21,
-          "cny": 1377.8,
+          "usd": 204.99,
+          "cny": 1377.2,
+          "obs": "2026-06-11"
+        }
+      }
+    },
+    {
+      "id": "CL",
+      "name": "智利",
+      "flag": "🇨🇱",
+      "prices": {
+        "plus": {
+          "local": "CL$19,990",
+          "currency": "CLP",
+          "usd": 20.83,
+          "cny": 139.94,
+          "obs": "2026-06-11"
+        },
+        "pro5": {
+          "local": "CL$102,990",
+          "currency": "CLP",
+          "usd": 107.32,
+          "cny": 721.02,
+          "obs": "2026-06-05"
+        },
+        "pro20": {
+          "local": "CL$199,990",
+          "currency": "CLP",
+          "usd": 208.4,
+          "cny": 1400.11,
           "obs": "2026-06-11"
         }
       }
@@ -379,77 +407,21 @@ window.PRICING_DATA = {
           "local": "₹1,999",
           "currency": "INR",
           "usd": 20.83,
-          "cny": 139.85,
+          "cny": 139.94,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "₹10,699",
           "currency": "INR",
-          "usd": 111.5,
-          "cny": 748.62,
+          "usd": 111.46,
+          "cny": 748.83,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "₹19,900",
           "currency": "INR",
-          "usd": 207.38,
-          "cny": 1392.37,
-          "obs": "2026-06-11"
-        }
-      }
-    },
-    {
-      "id": "CL",
-      "name": "智利",
-      "flag": "🇨🇱",
-      "prices": {
-        "plus": {
-          "local": "CL$19,990",
-          "currency": "CLP",
-          "usd": 20.97,
-          "cny": 140.79,
-          "obs": "2026-06-11"
-        },
-        "pro5": {
-          "local": "CL$102,990",
-          "currency": "CLP",
-          "usd": 108.02,
-          "cny": 725.26,
-          "obs": "2026-06-05"
-        },
-        "pro20": {
-          "local": "CL$199,990",
-          "currency": "CLP",
-          "usd": 209.76,
-          "cny": 1408.35,
-          "obs": "2026-06-11"
-        }
-      }
-    },
-    {
-      "id": "TH",
-      "name": "泰国",
-      "flag": "🇹🇭",
-      "prices": {
-        "plus": {
-          "local": "฿699",
-          "currency": "THB",
-          "usd": 21,
-          "cny": 141,
-          "obs": "2026-06-11"
-        },
-        "pro5": {
-          "local": "฿3,350",
-          "currency": "THB",
-          "usd": 100.64,
-          "cny": 675.71,
-          "obs": "2026-06-05"
-        },
-        "pro20": {
-          "local": "฿6,990",
-          "currency": "THB",
-          "usd": 210,
-          "cny": 1409.96,
+          "usd": 207.31,
+          "cny": 1392.79,
           "obs": "2026-06-11"
         }
       }
@@ -462,22 +434,50 @@ window.PRICING_DATA = {
         "plus": {
           "local": "₩29,000",
           "currency": "KRW",
-          "usd": 21.01,
-          "cny": 141.06,
+          "usd": 20.91,
+          "cny": 140.48,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "₩159,000",
           "currency": "KRW",
-          "usd": 115.18,
-          "cny": 773.33,
+          "usd": 114.65,
+          "cny": 770.26,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "₩299,000",
           "currency": "KRW",
-          "usd": 216.59,
-          "cny": 1454.21,
+          "usd": 215.59,
+          "cny": 1448.42,
+          "obs": "2026-06-11"
+        }
+      }
+    },
+    {
+      "id": "TH",
+      "name": "泰国",
+      "flag": "🇹🇭",
+      "prices": {
+        "plus": {
+          "local": "฿699",
+          "currency": "THB",
+          "usd": 20.96,
+          "cny": 140.82,
+          "obs": "2026-06-11"
+        },
+        "pro5": {
+          "local": "฿3,350",
+          "currency": "THB",
+          "usd": 100.44,
+          "cny": 674.8,
+          "obs": "2026-06-05"
+        },
+        "pro20": {
+          "local": "฿6,990",
+          "currency": "THB",
+          "usd": 209.58,
+          "cny": 1408.04,
           "obs": "2026-06-11"
         }
       }
@@ -490,22 +490,22 @@ window.PRICING_DATA = {
         "plus": {
           "local": "A$29.99",
           "currency": "AUD",
-          "usd": 21.33,
-          "cny": 143.21,
+          "usd": 21.35,
+          "cny": 143.44,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "A$154.99",
           "currency": "AUD",
-          "usd": 110.23,
-          "cny": 740.1,
+          "usd": 110.36,
+          "cny": 741.44,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "A$300",
           "currency": "AUD",
-          "usd": 213.36,
-          "cny": 1432.52,
+          "usd": 213.61,
+          "cny": 1435.12,
           "obs": "2026-06-11"
         }
       }
@@ -518,22 +518,22 @@ window.PRICING_DATA = {
         "plus": {
           "local": "NT$690",
           "currency": "TWD",
-          "usd": 21.65,
-          "cny": 145.36,
+          "usd": 21.67,
+          "cny": 145.59,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "NT$3,300",
           "currency": "TWD",
-          "usd": 103.57,
-          "cny": 695.38,
+          "usd": 103.66,
+          "cny": 696.43,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "NT$6,990",
           "currency": "TWD",
-          "usd": 219.37,
-          "cny": 1472.87,
+          "usd": 219.58,
+          "cny": 1475.23,
           "obs": "2026-06-11"
         }
       }
@@ -547,21 +547,21 @@ window.PRICING_DATA = {
           "local": "د.إ79.99",
           "currency": "AED",
           "usd": 21.78,
-          "cny": 146.23,
+          "cny": 146.33,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "د.إ384.99",
           "currency": "AED",
           "usd": 104.83,
-          "cny": 703.84,
+          "cny": 704.29,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "د.إ799.99",
           "currency": "AED",
           "usd": 217.83,
-          "cny": 1462.53,
+          "cny": 1463.47,
           "obs": "2026-06-11"
         }
       }
@@ -574,22 +574,22 @@ window.PRICING_DATA = {
         "plus": {
           "local": "₸9,990",
           "currency": "KZT",
-          "usd": 22.42,
-          "cny": 150.53,
+          "usd": 22.34,
+          "cny": 150.09,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "₸54,990",
           "currency": "KZT",
-          "usd": 123.41,
-          "cny": 828.59,
+          "usd": 122.95,
+          "cny": 826.03,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "₸99,990",
           "currency": "KZT",
-          "usd": 224.41,
-          "cny": 1506.71,
+          "usd": 223.55,
+          "cny": 1501.9,
           "obs": "2026-06-11"
         }
       }
@@ -602,22 +602,22 @@ window.PRICING_DATA = {
         "plus": {
           "local": "₪69.90",
           "currency": "ILS",
-          "usd": 23.08,
-          "cny": 154.96,
+          "usd": 23.06,
+          "cny": 154.93,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "₪309.90",
           "currency": "ILS",
-          "usd": 102.32,
-          "cny": 686.99,
+          "usd": 102.22,
+          "cny": 686.75,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "₪699.90",
           "currency": "ILS",
-          "usd": 231.08,
-          "cny": 1551.49,
+          "usd": 230.86,
+          "cny": 1551.01,
           "obs": "2026-06-11"
         }
       }
@@ -630,22 +630,22 @@ window.PRICING_DATA = {
         "plus": {
           "local": "MX$399",
           "currency": "MXN",
-          "usd": 23.22,
-          "cny": 155.9,
+          "usd": 23.18,
+          "cny": 155.73,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "MX$1,989",
           "currency": "MXN",
-          "usd": 115.74,
-          "cny": 777.09,
+          "usd": 115.56,
+          "cny": 776.38,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "MX$3,999",
           "currency": "MXN",
-          "usd": 232.7,
-          "cny": 1562.37,
+          "usd": 232.34,
+          "cny": 1560.95,
           "obs": "2026-06-11"
         }
       }
@@ -658,22 +658,22 @@ window.PRICING_DATA = {
         "plus": {
           "local": "S$29.98",
           "currency": "SGD",
-          "usd": 23.5,
-          "cny": 157.78,
+          "usd": 23.48,
+          "cny": 157.75,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "S$137.98",
           "currency": "SGD",
-          "usd": 108.16,
-          "cny": 726.2,
+          "usd": 108.09,
+          "cny": 726.19,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "S$299.98",
           "currency": "SGD",
-          "usd": 235.16,
-          "cny": 1578.89,
+          "usd": 234.99,
+          "cny": 1578.76,
           "obs": "2026-06-11"
         }
       }
@@ -686,22 +686,22 @@ window.PRICING_DATA = {
         "plus": {
           "local": "₦31,500",
           "currency": "NGN",
-          "usd": 23.68,
-          "cny": 158.99,
+          "usd": 23.69,
+          "cny": 159.16,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "₦144,900",
           "currency": "NGN",
-          "usd": 108.93,
-          "cny": 731.37,
+          "usd": 108.96,
+          "cny": 732.04,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "₦299,900",
           "currency": "NGN",
-          "usd": 225.44,
-          "cny": 1513.63,
+          "usd": 225.52,
+          "cny": 1515.13,
           "obs": "2026-06-11"
         }
       }
@@ -715,21 +715,21 @@ window.PRICING_DATA = {
           "local": "ر.س89.99",
           "currency": "SAR",
           "usd": 24,
-          "cny": 161.14,
+          "cny": 161.24,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "ر.س429.99",
           "currency": "SAR",
           "usd": 114.66,
-          "cny": 769.84,
+          "cny": 770.33,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "ر.س899.99",
           "currency": "SAR",
           "usd": 240,
-          "cny": 1611.38,
+          "cny": 1612.42,
           "obs": "2026-06-11"
         }
       }
@@ -742,22 +742,22 @@ window.PRICING_DATA = {
         "plus": {
           "local": "CHF20",
           "currency": "CHF",
-          "usd": 24.25,
-          "cny": 162.82,
+          "usd": 24.29,
+          "cny": 163.19,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "CHF83",
           "currency": "CHF",
-          "usd": 100.64,
-          "cny": 675.71,
+          "usd": 100.81,
+          "cny": 677.28,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "CHF200",
           "currency": "CHF",
-          "usd": 242.51,
-          "cny": 1628.24,
+          "usd": 242.92,
+          "cny": 1632.03,
           "obs": "2026-06-11"
         }
       }
@@ -770,22 +770,22 @@ window.PRICING_DATA = {
         "plus": {
           "local": "RM99.90",
           "currency": "MYR",
-          "usd": 24.39,
-          "cny": 163.76,
+          "usd": 24.48,
+          "cny": 164.47,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "RM419.90",
           "currency": "MYR",
-          "usd": 102.5,
-          "cny": 688.2,
+          "usd": 102.89,
+          "cny": 691.26,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "RM999.90",
           "currency": "MYR",
-          "usd": 244.09,
-          "cny": 1638.84,
+          "usd": 245.01,
+          "cny": 1646.08,
           "obs": "2026-06-11"
         }
       }
@@ -798,22 +798,22 @@ window.PRICING_DATA = {
         "plus": {
           "local": "R399.99",
           "currency": "ZAR",
-          "usd": 24.6,
-          "cny": 165.17,
+          "usd": 24.59,
+          "cny": 165.21,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "R1,839",
           "currency": "ZAR",
-          "usd": 113.1,
-          "cny": 759.36,
+          "usd": 113.06,
+          "cny": 759.58,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "R3,999.99",
           "currency": "ZAR",
-          "usd": 245.99,
-          "cny": 1651.6,
+          "usd": 245.91,
+          "cny": 1652.12,
           "obs": "2026-06-11"
         }
       }
@@ -826,22 +826,22 @@ window.PRICING_DATA = {
         "plus": {
           "local": "€22.99",
           "currency": "EUR",
-          "usd": 26.41,
-          "cny": 177.32,
+          "usd": 26.39,
+          "cny": 177.3,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "€102.99",
           "currency": "EUR",
-          "usd": 118.29,
-          "cny": 794.21,
+          "usd": 118.21,
+          "cny": 794.18,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "€229",
           "currency": "EUR",
-          "usd": 263.03,
-          "cny": 1766.01,
+          "usd": 262.84,
+          "cny": 1765.86,
           "obs": "2026-06-11"
         }
       }
@@ -855,21 +855,21 @@ window.PRICING_DATA = {
           "local": "kr249",
           "currency": "NOK",
           "usd": 26.43,
-          "cny": 177.45,
+          "cny": 177.57,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "kr1,190",
           "currency": "NOK",
-          "usd": 126.32,
-          "cny": 848.13,
+          "usd": 126.3,
+          "cny": 848.53,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "kr2,490",
           "currency": "NOK",
-          "usd": 264.31,
-          "cny": 1774.6,
+          "usd": 264.28,
+          "cny": 1775.54,
           "obs": "2026-06-11"
         }
       }
@@ -883,21 +883,21 @@ window.PRICING_DATA = {
           "local": "£19.99",
           "currency": "GBP",
           "usd": 26.72,
-          "cny": 179.4,
+          "cny": 179.52,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "£88.90",
           "currency": "GBP",
-          "usd": 118.81,
-          "cny": 797.7,
+          "usd": 118.83,
+          "cny": 798.35,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "£200",
           "currency": "GBP",
-          "usd": 267.3,
-          "cny": 1794.68,
+          "usd": 267.34,
+          "cny": 1796.1,
           "obs": "2026-06-11"
         }
       }
@@ -910,22 +910,22 @@ window.PRICING_DATA = {
         "plus": {
           "local": "kr179",
           "currency": "DKK",
-          "usd": 27.48,
-          "cny": 184.5,
+          "usd": 27.46,
+          "cny": 184.49,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "kr789",
           "currency": "DKK",
-          "usd": 121.13,
-          "cny": 813.28,
+          "usd": 121.03,
+          "cny": 813.13,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "kr1,799",
           "currency": "DKK",
-          "usd": 276.19,
-          "cny": 1854.37,
+          "usd": 275.97,
+          "cny": 1854.08,
           "obs": "2026-06-11"
         }
       }
@@ -938,22 +938,22 @@ window.PRICING_DATA = {
         "plus": {
           "local": "CO$99,900",
           "currency": "COP",
-          "usd": 31.93,
-          "cny": 214.38,
+          "usd": 31.94,
+          "cny": 214.59,
           "obs": "2026-06-11"
         },
         "pro5": {
           "local": "CO$364,900",
           "currency": "COP",
-          "usd": 116.63,
-          "cny": 783.07,
+          "usd": 116.67,
+          "cny": 783.84,
           "obs": "2026-06-05"
         },
         "pro20": {
           "local": "CO$999,900",
           "currency": "COP",
-          "usd": 319.58,
-          "cny": 2145.69,
+          "usd": 319.7,
+          "cny": 2147.87,
           "obs": "2026-06-11"
         }
       }
